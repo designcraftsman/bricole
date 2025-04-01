@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Bricole_App" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimaryVariant">@android:color/transparent</item>
+        <item name="colorAccent">@android:color/transparent</item>
+        <item name="android:buttonStyle">@style/CustomButton</item>
+    </style>
+    <!-- res/values/themes.xml -->
+
+
+    <!-- Custom Button Style -->
+    <style name="CustomButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+    </style>
+
+
+    <style name="Theme.Bricole_App" parent="Base.Theme.Bricole_App" />
+</resources>

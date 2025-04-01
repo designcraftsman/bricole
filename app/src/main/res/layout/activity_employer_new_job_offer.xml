@@ -1,0 +1,110 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Include Navbar -->
+    <include
+        layout="@layout/component_nav"
+        android:id="@+id/component_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Form Container (Pushes Below Navbar) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/component_nav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <!-- Description Field -->
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description*"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/et_description"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint="type de travail, tâche à effectuer..."
+                android:background="@drawable/component_input"
+                android:padding="12dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:gravity="start|top"/>
+
+            <!-- Offer Title Field -->
+            <TextView
+                android:id="@+id/tv_offer_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Titre de l’offre*"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/et_offer_title"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint=""
+                android:background="@drawable/component_input"
+                android:padding="12dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:gravity="start|top"/>
+
+            <!-- Number of Employees Field -->
+            <TextView
+                android:id="@+id/tv_number_employees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de personnes à embaucher pour ce poste *"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_number_employees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/component_input"
+                android:padding="8dp"/>
+
+            <!-- Continue Button -->
+            <Button
+                android:id="@+id/btn_continue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Continuer"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/orange"
+                android:paddingVertical="12dp"
+                android:layout_marginTop="32dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
