@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/orange"
+    android:background="@drawable/gradient"
     android:padding="16dp"
     >
 
