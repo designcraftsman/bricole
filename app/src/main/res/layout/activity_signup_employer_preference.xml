@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/gradient"
@@ -35,13 +36,29 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="260dp"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="320dp"
+        android:layout_margin="28dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:layout_margin="30dp"
-        android:background="@drawable/border"/>
+        android:id="@+id/preferencePlaceholder"
+        app:boxStrokeWidth="0dp"
+        app:boxBackgroundColor="@color/white"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/sectors_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeColor="@android:color/transparent"
+
+            />
+    </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

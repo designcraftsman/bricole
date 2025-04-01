@@ -12,10 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bricole_App"
         tools:targetApi="31">
-        <activity android:name=".controllers.Activity_SignUpEmployer_Preference" android:exported="true"/>
+        <activity android:name=".controllers.Activity_SignUpEmployee_Preference" android:exported="true"/>
         <activity android:name=".controllers.Activity_Signin" android:exported="true"/>
         <activity android:name=".controllers.Activity_SignUp_UserType" android:exported="true"/>
         <activity android:name=".controllers.Activity_Signup_Form" android:exported="true"/>
+        <activity android:name=".controllers.Activity_SignupEmployee_City" android:exported="true"/>
         <activity android:name=".controllers.Activity_Employer_Dashboard" android:exported="true"/>
         <activity
             android:name=".controllers.MainActivity"

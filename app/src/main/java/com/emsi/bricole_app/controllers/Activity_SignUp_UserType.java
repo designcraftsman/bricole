@@ -29,12 +29,12 @@ public class Activity_SignUp_UserType extends AppCompatActivity {
         });
 
         mBtnSignupEmployer.setOnClickListener(view->{
-            Intent intent = new Intent(this , Activity_SignUpEmployer_Preference.class);
+            Intent intent = new Intent(this , Activity_Signup_Form.class);
             startActivity(intent);
         });
 
         mBtnSignupEmployee.setOnClickListener(view->{
-            Intent intent = new Intent(this , Activity_Signup_Form.class);
+            Intent intent = new Intent(this , Activity_SignUpEmployee_Preference.class);
             startActivity(intent);
         });
 

@@ -85,7 +85,7 @@
         android:textColor="@color/black"
         android:text="Mot de passe Oublié ?"/>
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignup"
         android:width="250dp"
         android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
         android:backgroundTint="@color/white"
         android:textColor="@color/orange"
         android:textSize="22sp"
-        android:text="S’identifier"/>
+        android:text="S’inscrire"/>
 
     <include layout="@layout/component_login_text"/>
 
