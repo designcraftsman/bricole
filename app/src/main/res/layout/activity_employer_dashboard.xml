@@ -1,72 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
+    android:background="@color/white"
     android:gravity="center_horizontal"
-    android:background="@color/white">
+    android:orientation="vertical">
 
-    <!-- Top Bar -->
-    <include
-        layout="@layout/component_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
-    <!-- Main Content (Illustration + Text) -->
+    <!-- Main Content -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical"
-        android:gravity="center">
+        android:padding="16dp">
 
-        <!-- Illustration -->
         <ImageView
             android:id="@+id/illustration"
             android:layout_width="200dp"
             android:layout_height="150dp"
-            android:src="@drawable/profile_picture_background"
+            android:layout_marginTop="24dp"
             android:contentDescription="Illustration"
-            android:layout_marginTop="24dp"/>
+            android:src="@drawable/profile_picture_background" />
 
-        <!-- Main Title -->
         <TextView
             android:id="@+id/main_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Publiez votre première offre dès maintenant sur Bricol !"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:gravity="center"
+            android:paddingTop="16dp"
+            android:text="Publiez votre première offre dès maintenant sur Bricol !"
             android:textColor="@color/black"
-            android:paddingTop="16dp"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-        <!-- Subtitle -->
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Trouvez le bon travailleur en quelques minutes et lancez votre mission rapidement."
-            android:textSize="14sp"
             android:gravity="center"
-            android:textColor="@color/dark_gray"
+            android:paddingHorizontal="32dp"
             android:paddingTop="8dp"
-            android:paddingHorizontal="32dp"/>
+            android:text="Trouvez le bon travailleur en quelques minutes et lancez votre mission rapidement."
+            android:textColor="@color/dark_gray"
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- Button at Bottom -->
+    <!-- Bottom Button -->
     <Button
         android:id="@+id/btn_post_job"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Publier une offre d’emploi"
-        android:textSize="16sp"
-        android:textColor="@color/white"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/orange"
         android:padding="12dp"
-        android:layout_marginBottom="24dp"/>
+        android:text="Publier une offre d’emploi"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 </LinearLayout>

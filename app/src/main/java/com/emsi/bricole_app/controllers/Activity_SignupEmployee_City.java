@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.emsi.bricole_app.R;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class Activity_SignupEmployee_City extends AppCompatActivity {
 
@@ -15,6 +16,7 @@ public class Activity_SignupEmployee_City extends AppCompatActivity {
 
     private AutoCompleteTextView mEmployeeCityOptions;
 
+    private TextInputLayout mCityPlaceholder;
     private Button mCityNext;
 
     @Override
@@ -27,6 +29,10 @@ public class Activity_SignupEmployee_City extends AppCompatActivity {
         mEmployeeCityOptions = findViewById(R.id.employee_city_options);
 
         mCityNext = findViewById(R.id.city_next);
+
+        mCityPlaceholder = findViewById(R.id.city_placeholder_text);
+
+        mCityPlaceholder.setHint("Choissisez une ville");
 
         mCityNext.setOnClickListener(view->{
             Intent intent = new Intent(this , Activity_Signup_Form.class);

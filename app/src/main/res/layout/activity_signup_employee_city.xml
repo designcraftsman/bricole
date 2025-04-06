@@ -41,6 +41,7 @@
         app:boxCornerRadiusTopStart="25dp"
         android:layout_height="wrap_content"
         app:boxStrokeWidth="0dp"
+        android:id="@+id/city_placeholder_text"
         app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@android:color/transparent"
         >

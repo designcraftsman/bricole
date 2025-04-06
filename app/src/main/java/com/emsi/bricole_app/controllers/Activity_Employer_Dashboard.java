@@ -1,20 +1,33 @@
 package com.emsi.bricole_app.controllers;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.navigation.NavigationView;
 import com.emsi.bricole_app.R;
+import android.widget.Button;
 
-public class Activity_Employer_Dashboard extends AppCompatActivity {
-
-    private  TextView mBtnLoginRedirect;
+public class Activity_Employer_Dashboard extends BaseDrawerActivity {
+    private Button mBtnNewJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employer_dashboard); // Set the correct layout
 
+        // This method is defined in BaseDrawerActivity and inflates the DrawerLayout
+        setupDrawer(R.layout.activity_employer_dashboard);
+
+        mBtnNewJob = findViewById(R.id.btn_post_job);
+        mBtnNewJob.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Activity_Employer_NewJobOffer.class);
+            startActivity(intent);
+        });
     }
 }
+

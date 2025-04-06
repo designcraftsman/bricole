@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@color/orange"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:padding="16dp">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo_dark"
+        />
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Bienvenue Oussama !"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+</LinearLayout>
