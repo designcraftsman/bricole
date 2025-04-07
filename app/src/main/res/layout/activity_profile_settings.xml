@@ -13,44 +13,15 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Menu Icon -->
-        <ImageButton
-            android:id="@+id/menuIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@null"
-            android:contentDescription="Menu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <!-- Logo -->
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Logo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/menuIcon"
-            app:layout_constraintEnd_toStartOf="@id/profileImageSmall"
-            app:layout_constraintHorizontal_bias="0.5" />
-
-        <!-- Small Profile Image -->
-        <ImageView
-            android:id="@+id/profileImageSmall"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <!-- Back Button -->
         <ImageButton
             android:id="@+id/backButton"
             android:layout_width="24dp"
+            app:layout_constraintEnd_toStartOf="parent"
             android:layout_height="24dp"
-            android:background="@null"
+            app:layout_constraintTop_toBottomOf="@id/backButton"
+            android:background="@drawable/back"
             android:contentDescription="Back"
-            app:layout_constraintTop_toBottomOf="@+id/menuIcon"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="16dp" />
 
