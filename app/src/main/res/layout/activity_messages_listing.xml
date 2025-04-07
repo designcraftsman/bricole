@@ -9,7 +9,7 @@
 
     <!-- Back Arrow and Title -->
     <LinearLayout
-
+        android:id="@+id/chat_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -29,39 +29,35 @@
             android:text="Chat"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginStart="12dp" />
     </LinearLayout>
 
     <!-- Search Bar -->
     <LinearLayout
         android:id="@+id/searchBar"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:background="@drawable/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf=""
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/chat_header"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/search"
-            />
+        app:layout_constraintEnd_toEndOf="parent">
 
         <EditText
             android:id="@+id/searchInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:hint="Rechercher contact"
             android:background="@drawable/component_input"
-            android:paddingStart="8dp"
-            android:textSize="14sp" />
+            android:paddingStart="10dp"
+            android:paddingEnd="12dp"
+            android:textSize="12sp"
+            android:drawableStart="@drawable/search"
+            android:drawablePadding="8dp" />
     </LinearLayout>
+
 
     <!-- "Messages récents" -->
     <TextView

@@ -52,6 +52,8 @@ public class BaseDrawerActivity extends AppCompatActivity {
                 startActivity(new Intent(this, Activity_Offers.class));
             }else if(id == R.id.nav_settings){
                 startActivity(new Intent(this, Activity_Profile_Settings.class));
+            }else if(id == R.id.nav_messages){
+                startActivity(new Intent(this, Activity_Messages_Listing.class));
             }
             // Add more menu actions here
             drawerLayout.closeDrawers();

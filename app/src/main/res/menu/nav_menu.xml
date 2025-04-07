@@ -16,6 +16,11 @@
             android:title="Offres"
             android:icon="@drawable/offers"
             />
+        <item
+            android:id="@+id/nav_messages"
+            android:title="Messages"
+            android:icon="@drawable/messages"
+            />
     </group>
     <group>
         <item

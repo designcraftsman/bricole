@@ -24,7 +24,9 @@
         <activity android:name=".controllers.Activity_Offers" android:exported="true" />
         <activity android:name=".controllers.Activity_Profile_Settings" android:exported="true" />
         <activity android:name=".controllers.Activity_Job_Listing" android:exported="true" />
-         <activity
+        <activity android:name=".controllers.Activity_Messages_Listing" android:exported="true" />
+        <activity android:name=".controllers.Activity_Chat_Conversation" android:exported="true" />
+          <activity
             android:name=".controllers.MainActivity"
             android:exported="true">
             <intent-filter>
