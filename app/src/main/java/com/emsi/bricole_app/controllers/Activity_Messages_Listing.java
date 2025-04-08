@@ -1,7 +1,10 @@
 package com.emsi.bricole_app.controllers;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,10 +21,19 @@ public class Activity_Messages_Listing extends BaseDrawerActivity {
     Activity_MessagesAdapter adapter;
     ArrayList<Chat> chatMessages;
 
+    private ImageButton mBackBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupDrawer(R.layout.activity_messages_listing);
+
+
+        mBackBtn = findViewById(R.id.backButton);
+
+        mBackBtn.setOnClickListener(view->{
+            finish();
+        });
 
         chatRecyclerView = findViewById(R.id.chatRecyclerView);
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));

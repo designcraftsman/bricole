@@ -23,9 +23,6 @@ public class Activity_Offers  extends BaseDrawerActivity{
                 R.layout.component_spinner        // your custom layout
         );
 
-        // Optional: customize dropdown layout as well (use the same or another layout)
-        adapter.setDropDownViewResource(R.layout.component_spinner);
-
         spinner.setAdapter(adapter);
 
 

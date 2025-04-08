@@ -5,13 +5,12 @@ import android.os.Bundle;
 
 import com.emsi.bricole_app.R;
 
-public class Activity_Candidates  extends BaseDrawerActivity{
+public class Activity_Profile_Qualifications  extends BaseDrawerActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // This method is defined in BaseDrawerActivity and inflates the DrawerLayout
-        setupDrawer(R.layout.activity_candidates);
+        setupDrawer(R.layout.activity_profile_qualifications);
 
     }
 }

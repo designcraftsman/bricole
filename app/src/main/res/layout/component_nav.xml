@@ -21,7 +21,7 @@
         android:contentDescription="Bricole Logo"
         android:src="@drawable/logo"
         android:layout_centerInParent="true" />
-
+    
     <!-- Profile Image at End -->
     <ImageView
         android:id="@+id/profile_image"

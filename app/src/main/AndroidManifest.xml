@@ -26,6 +26,8 @@
         <activity android:name=".controllers.Activity_Job_Listing" android:exported="true" />
         <activity android:name=".controllers.Activity_Messages_Listing" android:exported="true" />
         <activity android:name=".controllers.Activity_Chat_Conversation" android:exported="true" />
+        <activity android:name=".controllers.Activity_Profile_Qualifications" android:exported="true" />
+        <activity android:name=".controllers.Activity_Profile_Preference" android:exported="true" />
           <activity
             android:name=".controllers.MainActivity"
             android:exported="true">
