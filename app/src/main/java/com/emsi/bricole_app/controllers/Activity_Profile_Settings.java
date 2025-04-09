@@ -16,6 +16,8 @@ public class Activity_Profile_Settings  extends BaseDrawerActivity{
 
     private LinearLayout mPreferenceSection;
 
+    private LinearLayout mAvailabilitySection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,8 @@ public class Activity_Profile_Settings  extends BaseDrawerActivity{
 
         mPreferenceSection = findViewById(R.id.preferencesSection);
 
+        mAvailabilitySection = findViewById(R.id.availabilitySection);
+
         mPreferenceSection.setOnClickListener(view->{
             Intent intent = new Intent(this, Activity_Profile_Preference.class);
             startActivity(intent);
@@ -36,6 +40,12 @@ public class Activity_Profile_Settings  extends BaseDrawerActivity{
             Intent intent = new Intent(this, Activity_Profile_Qualifications.class);
             startActivity(intent);
         });
+
+        mAvailabilitySection.setOnClickListener(view->{
+            Intent intent = new Intent(this, Activity_Profile_Employee_Availability.class);
+            startActivity(intent);
+        });
+
         mBackBtn = findViewById(R.id.backButton);
 
         mBackBtn.setOnClickListener(view->{

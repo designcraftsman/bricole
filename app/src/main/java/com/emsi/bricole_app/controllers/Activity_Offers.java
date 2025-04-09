@@ -14,7 +14,6 @@ public class Activity_Offers  extends BaseDrawerActivity{
 
         // This method is defined in BaseDrawerActivity and inflates the DrawerLayout
         setupDrawer(R.layout.activity_offers);
-        Spinner spinner = findViewById(R.id.spinnerStatus);
 
         // Create adapter with custom layout for selected item display
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -22,11 +21,5 @@ public class Activity_Offers  extends BaseDrawerActivity{
                 R.array.status_options,       // defined in res/values/strings.xml
                 R.layout.component_spinner        // your custom layout
         );
-
-        spinner.setAdapter(adapter);
-
-
-
-
     }
 }

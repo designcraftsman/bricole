@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Qualifications"
+            android:text="Disponibilité"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#000000" />
@@ -49,8 +49,8 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_agenda"
-               />
+                android:src="@drawable/date"
+                app:tint="@color/black" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -62,15 +62,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Specialité"
-                    android:textColor="@color/black"
+                    android:text="Choissisez les jours dont vous étes disponibles"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mécanique"
+                    android:text="Lundi,Jeudi,Vendredi"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -80,8 +80,7 @@
                 android:src="@android:drawable/ic_menu_edit"
                 app:tint="@color/black" />
         </LinearLayout>
-
-        <!-- Langues -->
+        <!-- Formation -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,8 +91,8 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_compass"
-                app:tint="#444" />
+                android:src="@drawable/time"
+                app:tint="@color/black" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -105,15 +104,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Langues"
-                    android:textColor="@color/black"
+                    android:text="Choissisez les heures de travails"
                     android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Anglais"
+                    android:text="08h00 à 18h00"
                     android:textSize="14sp" />
             </LinearLayout>
 

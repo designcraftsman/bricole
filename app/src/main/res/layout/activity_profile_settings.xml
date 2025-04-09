@@ -275,7 +275,7 @@
 
         <!-- Availability Section -->
         <LinearLayout
-            android:id="@+id/availability"
+            android:id="@+id/availabilitySection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"

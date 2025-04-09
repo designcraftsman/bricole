@@ -51,8 +51,8 @@
             android:padding="12dp"
             android:elevation="0dp"
             android:stateListAnimator="@null"
-            android:backgroundTint="@null"
-            style="?android:attr/borderlessButtonStyle"/>  <!-- Forces default button style to be removed -->
+            app:backgroundTint="@null"
+            />  <!-- Forces default button style to be removed -->
 
 
         <TextView

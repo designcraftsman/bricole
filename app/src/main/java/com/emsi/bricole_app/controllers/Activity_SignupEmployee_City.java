@@ -19,6 +19,8 @@ public class Activity_SignupEmployee_City extends AppCompatActivity {
     private TextInputLayout mCityPlaceholder;
     private Button mCityNext;
 
+    private Button mCityPrevious;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,8 @@ public class Activity_SignupEmployee_City extends AppCompatActivity {
         mBtnLoginRedirect = findViewById(R.id.btnLoginRedirect);
 
         mEmployeeCityOptions = findViewById(R.id.employee_city_options);
+
+        mCityPrevious = findViewById(R.id.city_previous);
 
         mCityNext = findViewById(R.id.city_next);
 
@@ -38,6 +42,11 @@ public class Activity_SignupEmployee_City extends AppCompatActivity {
             Intent intent = new Intent(this , Activity_Signup_Form.class);
             startActivity(intent);
         });
+
+        mCityPrevious.setOnClickListener(view->{
+            finish();
+        });
+
         String[] cities = {"casablanca","Marrakech","Rabat"};
 
         ArrayAdapter<String> adapter =  new ArrayAdapter<>(this,android.R.layout.simple_dropdown_item_1line,cities);

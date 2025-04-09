@@ -18,6 +18,8 @@ public class Activity_SignUpEmployee_Preference extends AppCompatActivity {
     private TextInputLayout mPreferencePlaceholder;
     private Button mPreferenceNext;
 
+    private Button mPreferencePrevious;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,12 @@ public class Activity_SignUpEmployee_Preference extends AppCompatActivity {
         mPreferencePlaceholder = findViewById(R.id.preferencePlaceholder);
 
         mPreferencePlaceholder.setHint("Choisissez votre spécialisation");
+
+        mPreferencePrevious = findViewById(R.id.preference_previous);
+
+        mPreferencePrevious.setOnClickListener(view->{
+            finish();
+        });
 
         mSectorsOptions = findViewById(R.id.sectors_options);
 

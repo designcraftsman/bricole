@@ -22,7 +22,7 @@
             android:layout_height="150dp"
             android:layout_marginTop="24dp"
             android:contentDescription="Illustration"
-            android:src="@drawable/profile_picture_background" />
+            android:src="@drawable/dashboard" />
 
         <TextView
             android:id="@+id/main_title"

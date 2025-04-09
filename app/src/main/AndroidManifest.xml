@@ -28,6 +28,7 @@
         <activity android:name=".controllers.Activity_Chat_Conversation" android:exported="true" />
         <activity android:name=".controllers.Activity_Profile_Qualifications" android:exported="true" />
         <activity android:name=".controllers.Activity_Profile_Preference" android:exported="true" />
+        <activity android:name=".controllers.Activity_Profile_Employee_Availability" android:exported="true" />
           <activity
             android:name=".controllers.MainActivity"
             android:exported="true">

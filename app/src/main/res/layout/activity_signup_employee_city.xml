@@ -64,8 +64,10 @@
         >
 
         <Button
+            android:id="@+id/city_previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:backgroundTint="@color/white"
             android:hint="Previous"
             android:layout_marginEnd="16dp"/> <!-- Adds space to the right -->
 
@@ -73,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Next"
+            app:backgroundTint="@color/white"
             android:id="@+id/city_next"
             android:layout_marginStart="16dp"/> <!-- Adds space to the left -->
     </LinearLayout>

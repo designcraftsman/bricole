@@ -5,10 +5,10 @@
     <!-- Border color and thickness -->
     <stroke
         android:width="3dp"
-        android:color="#ffffff"/>  <!-- Black border -->
+        android:color="@color/white"/>  <!-- Black border -->
 
     <!-- Background color (Optional) -->
     <solid android:color="@android:color/transparent"/>
     <!-- Rounded corners (Optional) -->
-    <corners android:radius="20dp"/>
+    <corners android:radius="50dp"/>
 </shape>
