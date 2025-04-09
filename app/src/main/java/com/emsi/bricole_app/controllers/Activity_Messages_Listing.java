@@ -1,21 +1,18 @@
 package com.emsi.bricole_app.controllers;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.widget.ImageButton;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.emsi.bricole_app.R;
-import com.emsi.bricole_app.controllers.Activity_MessagesAdapter;
 import com.emsi.bricole_app.models.Chat;
 
 import java.util.ArrayList;
 
-public class Activity_Messages_Listing extends BaseDrawerActivity {
+public class Activity_Messages_Listing extends Employer_Drawer {
 
     RecyclerView chatRecyclerView;
     Activity_MessagesAdapter adapter;

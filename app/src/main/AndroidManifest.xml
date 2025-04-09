@@ -19,7 +19,7 @@
         <activity android:name=".controllers.Activity_SignupEmployee_City" android:exported="true"/>
         <activity android:name=".controllers.Activity_Employer_Dashboard" android:exported="true"/>
         <activity android:name=".controllers.Activity_Employer_NewJobOffer" android:exported="true"/>
-        <activity android:name=".controllers.BaseDrawerActivity" android:exported="true" />
+        <activity android:name=".controllers.Employer_Drawer" android:exported="true" />
         <activity android:name=".controllers.Activity_Candidates" android:exported="true" />
         <activity android:name=".controllers.Activity_Offers" android:exported="true" />
         <activity android:name=".controllers.Activity_Profile_Settings" android:exported="true" />

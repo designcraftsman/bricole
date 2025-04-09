@@ -1,13 +1,11 @@
 package com.emsi.bricole_app.controllers;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.emsi.bricole_app.R;
 
-public class Activity_Offers  extends BaseDrawerActivity{
+public class Activity_Offers extends Employer_Drawer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

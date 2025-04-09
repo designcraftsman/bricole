@@ -2,18 +2,11 @@ package com.emsi.bricole_app.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import com.google.android.material.navigation.NavigationView;
+
 import com.emsi.bricole_app.R;
 import android.widget.Button;
 
-public class Activity_Employer_Dashboard extends BaseDrawerActivity {
+public class Activity_Employer_Dashboard extends Employer_Drawer {
     private Button mBtnNewJob;
 
     @Override

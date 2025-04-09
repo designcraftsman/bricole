@@ -2,7 +2,6 @@ package com.emsi.bricole_app.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -12,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.emsi.bricole_app.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class BaseDrawerActivity extends AppCompatActivity {
+public class Employer_Drawer extends AppCompatActivity {
 
     protected DrawerLayout drawerLayout;
 
@@ -23,7 +22,7 @@ public class BaseDrawerActivity extends AppCompatActivity {
     }
 
     protected void setupDrawer(int layoutResID) {
-        DrawerLayout fullLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.base_drawer_layout, null);
+        DrawerLayout fullLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.employer_drawer_layout, null);
         FrameLayout container = fullLayout.findViewById(R.id.content_frame);
         getLayoutInflater().inflate(layoutResID, container, true);
         super.setContentView(fullLayout);

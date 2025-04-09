@@ -112,6 +112,49 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/skills_required_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Compétence Requise (Optionnel)"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/skills_required_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Votre choix"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="#DDDDDD"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidthFocused="2dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/skills_required_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColor="@android:color/black"
+                    android:drawableEnd="@drawable/arrow_down"
+                    android:drawableRight="@drawable/arrow_down"
+                    android:padding="12dp"
+
+                    android:textSize="16sp"
+                    android:dropDownVerticalOffset="8dp"
+                    android:dropDownHeight="wrap_content"
+                    android:paddingEnd="12dp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
     </ScrollView>
@@ -120,8 +163,9 @@
         android:id="@+id/btn_new_job"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Continuer"
-        android:textSize="16sp"
+        android:text="Publier"
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:textColor="@android:color/white"
         android:backgroundTint="@color/orange"
         android:paddingVertical="12dp"

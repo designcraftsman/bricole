@@ -11,10 +11,9 @@ import com.emsi.bricole_app.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.emsi.bricole_app.controllers.Activity_JobAdapter;
 import com.emsi.bricole_app.models.Job;
 
-public class Activity_Job_Listing extends BaseDrawerActivity {
+public class Activity_Job_Listing extends Employee_Drawer {
 
     private RecyclerView jobRecyclerView;
     private Spinner citySpinner;

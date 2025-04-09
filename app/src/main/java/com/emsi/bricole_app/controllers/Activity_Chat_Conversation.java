@@ -11,9 +11,8 @@ import com.emsi.bricole_app.models.ChatMessage;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.emsi.bricole_app.controllers.Activity_ChatAdapter;
 
-public class Activity_Chat_Conversation extends  BaseDrawerActivity{
+public class Activity_Chat_Conversation extends Employer_Drawer {
 
     private ImageButton mBackBtn;
     @Override
