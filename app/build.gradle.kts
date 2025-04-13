@@ -35,6 +35,7 @@ dependencies {
     implementation("androidx.drawerlayout:drawerlayout:1.2.0") // ✅ This one is essential for the drawer
     implementation("com.google.android.material:material:1.11.0") // Material components (NavigationView, etc.)
     implementation("androidx.appcompat:appcompat:1.6.1") // AppCompat for Toolbar support
+    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
 
     implementation(libs.activity)
     implementation(libs.constraintlayout)

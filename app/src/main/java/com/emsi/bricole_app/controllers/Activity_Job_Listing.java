@@ -28,7 +28,6 @@ public class Activity_Job_Listing extends Employee_Drawer {
 
         // Initialize views
         jobRecyclerView = findViewById(R.id.jobRecyclerView);
-        citySpinner = findViewById(R.id.citySpinner);
         searchInput = findViewById(R.id.searchInput);
 
         // Set up RecyclerView
