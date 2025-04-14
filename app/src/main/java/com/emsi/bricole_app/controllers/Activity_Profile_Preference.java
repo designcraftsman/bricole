@@ -10,6 +10,5 @@ public class Activity_Profile_Preference extends Employer_Drawer {
         super.onCreate(savedInstanceState);
         // This method is defined in BaseDrawerActivity and inflates the DrawerLayout
         setupDrawer(R.layout.activity_profile_preference);
-
     }
 }

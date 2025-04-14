@@ -30,11 +30,13 @@ public class Activity_SignUp_UserType extends AppCompatActivity {
 
         mBtnSignupEmployer.setOnClickListener(view->{
             Intent intent = new Intent(this , Activity_Signup_Form.class);
+            intent.putExtra("user_type", "employer");
             startActivity(intent);
         });
 
         mBtnSignupEmployee.setOnClickListener(view->{
-            Intent intent = new Intent(this , Activity_SignUpEmployee_Preference.class);
+            Intent intent = new Intent(this , Activity_Signup_Form.class);
+            intent.putExtra("user_type", "employee");
             startActivity(intent);
         });
 

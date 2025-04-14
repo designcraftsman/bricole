@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/gradient">
@@ -32,18 +33,62 @@
         android:textColorHint="@android:color/white"
         android:textColor="@color/white"
         android:background="@drawable/login_input"
-        android:inputType="textPassword"/>
-    <EditText
-        android:id="@+id/Phone"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"
+        android:inputType="text"/>
+    <LinearLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:hint="Phone"
+        android:layout_marginTop="12dp"
+        >
+
+    <EditText
+        android:id="@+id/Phone_Prefix"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:hint="+212"
+        android:padding="12dp"
+        android:inputType="phone"
+        android:textColorHint="@android:color/white"
+        android:textColor="@color/white"
+        android:background="@drawable/login_input" />
+
+
+    <!-- Phone Number -->
+    <EditText
+        android:id="@+id/Phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:padding="12dp"
+        android:inputType="phone"
         android:textColorHint="@android:color/white"
         android:textColor="@color/white"
         android:background="@drawable/login_input"
-        android:inputType="textPassword"/>
+        android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="250dp"
+        android:layout_marginTop="12dp"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxCornerRadiusBottomEnd="25dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        app:boxCornerRadiusTopStart="25dp"
+        android:layout_height="wrap_content"
+        app:boxStrokeWidth="0dp"
+        android:id="@+id/Gender"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@android:color/transparent"
+        >
+        <AutoCompleteTextView
+            android:id="@+id/Gender_Options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            app:boxStrokeColor="@android:color/transparent"
+            app:boxStrokeWidth="0dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
     <EditText
         android:id="@+id/Birth_Date"
         android:padding="12dp"
@@ -54,7 +99,19 @@
         android:textColorHint="@android:color/white"
         android:textColor="@color/white"
         android:background="@drawable/login_input"
-        android:inputType="textPassword"/>
+        android:inputType="none"/>
+
+    <EditText
+        android:id="@+id/Adress"
+        android:padding="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Adress"
+        android:textColorHint="@android:color/white"
+        android:textColor="@color/white"
+        android:background="@drawable/login_input"
+        android:inputType="text"/>
     <EditText
         android:id="@+id/etEmail"
         android:padding="12dp"
@@ -65,7 +122,7 @@
         android:textColorHint="@android:color/white"
         android:textColor="@color/white"
         android:background="@drawable/login_input"
-        android:inputType="textPassword"/>
+        android:inputType="text"/>
     <EditText
         android:id="@+id/etPassword"
         android:padding="12dp"
