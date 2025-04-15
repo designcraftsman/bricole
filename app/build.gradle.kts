@@ -39,6 +39,7 @@ dependencies {
 
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.volley)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

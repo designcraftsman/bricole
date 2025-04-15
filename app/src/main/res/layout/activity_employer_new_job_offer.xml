@@ -33,7 +33,74 @@
                 android:layout_marginTop="16dp"/>
 
             <EditText
-                android:id="@+id/et_offer_title"
+                android:id="@+id/job_offer_title"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="100dp"
+                android:hint="Titre du nouveau offre"
+                android:background="@drawable/component_input"
+                android:padding="12dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:gravity="start|top"/>
+
+
+            <!-- Offer Title Field -->
+            <TextView
+                android:id="@+id/job_category_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categorie"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/job_offer_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Selectionner une catégorie"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="#DDDDDD"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidthFocused="2dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusBottomEnd="8dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/job_offer_category_options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:textColor="@android:color/black"
+                    android:drawableEnd="@drawable/arrow_down"
+                    android:drawableRight="@drawable/arrow_down"
+                    android:padding="12dp"
+
+                    android:textSize="16sp"
+                    android:dropDownVerticalOffset="8dp"
+                    android:dropDownHeight="wrap_content"
+                    android:paddingEnd="12dp"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/job_offer_location_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Locatisation"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <EditText
+                android:id="@+id/job_offer_location"
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_height="100dp"
@@ -48,7 +115,7 @@
             <!-- Description Field -->
             <TextView
                 android:layout_marginTop="30dp"
-                android:id="@+id/tv_description"
+                android:id="@+id/job_offer_description_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Description"
@@ -56,61 +123,103 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
+
+
             <EditText
-                android:id="@+id/et_description"
+                android:id="@+id/job_offer_description"
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
-                android:layout_height="100dp"
-                android:hint="type de travail, tâche à effectuer..."
+                android:layout_height="wrap_content"
+                android:hint="Ajouter des missions"
                 android:background="@drawable/component_input"
                 android:padding="12dp"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
                 android:gravity="start|top"/>
-            <!-- Number of Employees Field -->
+
+            <!-- Description Field -->
             <TextView
-                android:id="@+id/tv_number_employees"
+                android:layout_marginTop="30dp"
+                android:id="@+id/job_offer_salary_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre de personnes à embaucher pour ce poste"
+                android:text="Salaire"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginTop="30dp"/>
+                android:textStyle="bold"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/candidates_number"
+
+
+            <EditText
+                android:id="@+id/job_offer_salary"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:hint="Entrer le montant en dirham"
+                android:background="@drawable/component_input"
+                android:padding="12dp"
+                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:gravity="start|top"/>
+
+            <!-- Description Field -->
+            <!-- Missions Label -->
+            <TextView
+                android:id="@+id/job_offer_missions_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Missions"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Missions Section with Add Button -->
+            <LinearLayout
+                android:id="@+id/missions_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Nombre de personnes"
-                app:boxBackgroundMode="outline"
-                app:boxStrokeColor="#DDDDDD"
-                app:boxStrokeWidth="1dp"
-                app:boxBackgroundColor="@android:color/transparent"
-                app:boxStrokeWidthFocused="2dp"
-                app:boxCornerRadiusTopStart="8dp"
-                app:boxCornerRadiusTopEnd="8dp"
-                app:boxCornerRadiusBottomStart="8dp"
-                app:boxCornerRadiusBottomEnd="8dp">
+                android:orientation="vertical"
+                android:layout_marginTop="10dp" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/candidates_number_options"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:textColor="@android:color/black"
-                    android:drawableEnd="@drawable/arrow_down"
-                    android:drawableRight="@drawable/arrow_down"
-                    android:padding="12dp"
+            <Button
+                android:id="@+id/add_mission_button"
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:background="@color/dark_gray"
+                android:layout_height="wrap_content"
+                android:text="+ Ajouter une mission"
+                android:layout_marginTop="8dp" />
 
-                    android:textSize="16sp"
-                    android:dropDownVerticalOffset="8dp"
-                    android:dropDownHeight="wrap_content"
-                    android:paddingEnd="12dp"
-                />
+            <!-- Media Label -->
+            <TextView
+                android:id="@+id/job_offer_media_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Importer des fichiers (Optionnel)"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            <!-- Media Section with Add Button -->
+            <LinearLayout
+                android:id="@+id/media_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp" />
+
+            <Button
+                android:id="@+id/add_media_button"
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:background="@color/dark_gray"
+                android:layout_height="wrap_content"
+                android:text="+ Ajouter un média"
+                android:layout_marginTop="8dp" />
+
+
 
             <TextView
                 android:id="@+id/skills_required_label"
@@ -121,6 +230,9 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="30dp"/>
+
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/skills_required_placeholder"
                 android:layout_width="match_parent"
@@ -130,6 +242,7 @@
                 app:boxBackgroundMode="outline"
                 app:boxStrokeColor="#DDDDDD"
                 app:boxStrokeWidth="1dp"
+                android:layout_marginBottom="150dp"
                 app:boxBackgroundColor="@android:color/transparent"
                 app:boxStrokeWidthFocused="2dp"
                 app:boxCornerRadiusTopStart="8dp"
