@@ -37,6 +37,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1") // AppCompat for Toolbar support
     implementation ("com.squareup.okhttp3:okhttp:4.10.0")
 
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.volley)

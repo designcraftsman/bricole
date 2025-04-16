@@ -44,7 +44,7 @@ public class Employee_Drawer extends AppCompatActivity {
             // handle menu item clicks here
             int id = item.getItemId();
             if (id == R.id.nav_dashboard) {
-                startActivity(new Intent(this, Activity_Employer_Dashboard.class));
+                startActivity(new Intent(this, Activity_Job_Listing.class));
             }else if(id == R.id.nav_offers){
                 startActivity(new Intent(this, Activity_Offers.class));
             }else if(id == R.id.nav_settings){

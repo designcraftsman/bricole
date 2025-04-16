@@ -39,7 +39,6 @@ public class Activity_Employer_NewJobOffer extends Employer_Drawer {
     private LinearLayout missionsContainer;
     private LinearLayout mediaContainer;
     private SharedPreferences prefs;
-
     private Button addMission;
     private Button addMedia;
     final String API_URL = "http://10.0.2.2:8080/api/employer/job/create";
@@ -126,7 +125,6 @@ public class Activity_Employer_NewJobOffer extends Employer_Drawer {
                 if (!mediaUrl.isEmpty()) media.put(String.valueOf(i), mediaUrl);
             }
             body.put("media", media);
-
             sendRequest(token, body);
 
         } catch (Exception e) {

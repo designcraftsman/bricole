@@ -33,6 +33,13 @@ public class Activity_JobAdapter extends RecyclerView.Adapter<Activity_JobAdapte
         holder.jobLocation.setText(job.getLocation());
         holder.postTime.setText(job.getTimePosted());
         holder.badgeNew.setVisibility(job.isNew() ? View.VISIBLE : View.GONE);
+        holder.itemView.setOnClickListener(v -> {
+            // Navigate to the job detail activity
+            android.content.Context context = v.getContext();
+            android.content.Intent intent = new android.content.Intent(context, Activity_Single_Job_Offer.class);
+            intent.putExtra("job_id", job.getId()); // Pass job ID
+            context.startActivity(intent);
+        });
     }
 
     @Override

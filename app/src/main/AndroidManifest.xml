@@ -32,7 +32,8 @@
         <activity android:name=".controllers.Activity_Profile_Qualifications" android:exported="true" />
         <activity android:name=".controllers.Activity_Profile_Preference" android:exported="true" />
         <activity android:name=".controllers.Activity_Profile_Employee_Availability" android:exported="true" />
-          <activity
+        <activity android:name=".controllers.Activity_Single_Job_Offer" android:exported="true"/>
+        <activity
             android:name=".controllers.MainActivity"
             android:exported="true">
             <intent-filter>
