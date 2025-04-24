@@ -21,6 +21,16 @@
         android:contentDescription="Bricole Logo"
         android:src="@drawable/logo"
         android:layout_centerInParent="true" />
+
+    <ImageView
+        android:id="@+id/notifications"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:contentDescription="User notifications"
+        android:src="@drawable/notifications"
+        android:layout_centerInParent="true"
+        android:layout_toStartOf="@+id/profile_image"
+        android:layout_toEndOf="@id/logo" />
     
     <!-- Profile Image at End -->
     <ImageView

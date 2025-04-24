@@ -33,6 +33,14 @@ public class Employee_Drawer extends AppCompatActivity {
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+
+        ImageView notificationsBtn = findViewById(R.id.notifications);
+
+        notificationsBtn.setOnClickListener(view->{
+            Intent intent = new Intent(this , Activity_Notifications.class);
+            startActivity(intent);
+        });
+
         setSupportActionBar(toolbar);
 
         drawerLayout = fullLayout.findViewById(R.id.drawer_layout);
