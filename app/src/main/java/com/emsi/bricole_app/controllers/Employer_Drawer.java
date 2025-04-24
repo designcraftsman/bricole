@@ -2,6 +2,7 @@ package com.emsi.bricole_app.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +27,9 @@ public class Employer_Drawer extends AppCompatActivity {
         FrameLayout container = fullLayout.findViewById(R.id.content_frame);
         getLayoutInflater().inflate(layoutResID, container, true);
         super.setContentView(fullLayout);
+
+        ImageView profileImage = findViewById(R.id.profile_image);
+        Component_Nav.loadUserProfileImage(this, profileImage);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

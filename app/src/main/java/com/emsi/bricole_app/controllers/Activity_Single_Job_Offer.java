@@ -32,6 +32,7 @@ public class Activity_Single_Job_Offer extends Employee_Drawer {
     private TextView txtDescriptionLabel, txtDescription;
     private TextView txtSkillsLabel, txtSkill1, txtSkill2, txtSkill3;
     private TextView txtContact;
+
     private Button btnApply;
 
     private ScrollView scrollView;
@@ -87,10 +88,14 @@ public class Activity_Single_Job_Offer extends Employee_Drawer {
         // Apply button
         btnApply = findViewById(R.id.btnApply);
 
-        // Example functionality
-        btnApply.setOnClickListener(v ->
-                Toast.makeText(this, "Vous avez postulé avec succès !", Toast.LENGTH_SHORT).show()
-        );
+        btnApply.setOnClickListener(v -> {
+            if (jobId != -1) {
+                applyToJob(jobId);
+            } else {
+                Toast.makeText(this, "Invalid job ID!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         // Optional: back button functionality
         if (backButton != null) {
@@ -141,5 +146,47 @@ public class Activity_Single_Job_Offer extends Employee_Drawer {
             }
         });
     }
+
+    private void applyToJob(int jobId) {
+        // Load access token from SharedPreferences
+        String accessToken = getSharedPreferences("auth", MODE_PRIVATE)
+                .getString("access_token", null);
+
+        if (accessToken == null) {
+            Toast.makeText(this, "Access token not found!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        OkHttpClient client = new OkHttpClient();
+
+        String postUrl = "http://10.0.2.2:8080/api/employee/apply/job/" + jobId;
+
+        Request request = new Request.Builder()
+                .url(postUrl)
+                .post(okhttp3.RequestBody.create(new byte[0])) // empty POST body
+                .addHeader("Authorization", "Bearer " + accessToken)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(() ->
+                        Toast.makeText(Activity_Single_Job_Offer.this, "Failed to apply for job", Toast.LENGTH_SHORT).show()
+                );
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                runOnUiThread(() -> {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(Activity_Single_Job_Offer.this, "Vous avez postulé avec succès !", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Activity_Single_Job_Offer.this, "Échec de la candidature: " + response.code(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
 
 }

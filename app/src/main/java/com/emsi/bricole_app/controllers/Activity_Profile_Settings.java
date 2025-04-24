@@ -2,12 +2,18 @@ package com.emsi.bricole_app.controllers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.emsi.bricole_app.controllers.VolleyMultipartRequest;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -15,6 +21,13 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.emsi.bricole_app.R;
 import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Activity_Profile_Settings extends Employer_Drawer {
 
@@ -25,7 +38,11 @@ public class Activity_Profile_Settings extends Employer_Drawer {
     private ImageView mProfileImage;
     private SharedPreferences prefs;
 
-    private final String API_URL = "http://10.0.2.2:8080/api/profile";
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private Uri selectedImageUri;
+    private final String PROFILE_DATA_URL = "http://10.0.2.2:8080/api/profile";
+    private final String UPDATE_IMAGE_URL = "http://10.0.2.2:8080/api/profile/image";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +66,8 @@ public class Activity_Profile_Settings extends Employer_Drawer {
 
         mBackBtn = findViewById(R.id.backButton);
 
+        mProfileImage.setOnClickListener(v->openImagePicker());
+
         mBackBtn.setOnClickListener(view -> finish());
 
         mPreferenceSection.setOnClickListener(view -> {
@@ -66,10 +85,79 @@ public class Activity_Profile_Settings extends Employer_Drawer {
         fetchUserProfile(USER_ACCESS_TOKEN);
     }
 
+    private void openImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            selectedImageUri = data.getData();
+            mProfileImage.setImageURI(selectedImageUri); // Preview it
+            uploadImageToServer(selectedImageUri);
+        }
+    }
+
+    private void uploadImageToServer(Uri imageUri) {
+        try {
+            InputStream iStream = getContentResolver().openInputStream(imageUri);
+            byte[] inputData = getBytes(iStream);
+
+            VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, UPDATE_IMAGE_URL,
+                    response -> {
+                        // Handle response
+                        Toast.makeText(this, "Upload successful", Toast.LENGTH_SHORT).show();
+                    },
+                    error -> {
+                        error.printStackTrace();
+                        Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show();
+                    }) {
+
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + prefs.getString("access_token", null));
+                    return headers;
+                }
+
+                @Override
+                public Map<String, DataPart> getByteData() {
+                    Map<String, DataPart> params = new HashMap<>();
+                    params.put("file", new DataPart("profile.jpg", inputData, "image/jpeg"));
+                    return params;
+                }
+            };
+
+            Volley.newRequestQueue(this).add(multipartRequest);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
+
+
     private void fetchUserProfile(String token) {
 
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, API_URL, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, PROFILE_DATA_URL, null,
                 response -> {
                     try {
                         String email = response.getString("email");
@@ -78,7 +166,10 @@ public class Activity_Profile_Settings extends Employer_Drawer {
                         int prefix = response.getInt("phoneNumberPrefix");
                         String phone = response.getString("phoneNumber");
                         String address = response.getString("address");
-                        String profilePicture = response.getString("profilePicture");
+                        String profilePictureFilename = response.getString("profilePicture");
+                        String imageUrl = "http://10.0.2.2:8080/images/profile/"
+                                + URLEncoder.encode(profilePictureFilename, "UTF-8")
+                                + "?t=" + System.currentTimeMillis(); // Bust cache
 
                         mUserName.setText(firstname + " " + lastname);
                         mEmail.setText(email);
@@ -86,9 +177,11 @@ public class Activity_Profile_Settings extends Employer_Drawer {
                         mLocation.setText(address);
 
                         Glide.with(this)
-                                .load(profilePicture)
-                                .placeholder(R.drawable.avatar)
+                                .load(imageUrl)
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(true)
                                 .into(mProfileImage);
+
 
                     } catch (Exception e) {
                         e.printStackTrace();

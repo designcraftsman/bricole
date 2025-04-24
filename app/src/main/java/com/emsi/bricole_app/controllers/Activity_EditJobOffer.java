@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Activity_Employer_NewJobOffer extends Employer_Drawer {
+public class Activity_EditJobOffer extends Employer_Drawer {
 
     private TextView mBtnLoginRedirect;
 
@@ -64,7 +64,7 @@ public class Activity_Employer_NewJobOffer extends Employer_Drawer {
         addMedia.setOnClickListener(v -> addMediaField());
 
         Button publishBtn = findViewById(R.id.btn_new_job);
-        publishBtn.setOnClickListener(view -> submitJobOffer(USER_ACCESS_TOKEN));
+        publishBtn.setOnClickListener(view -> editJobOffer(USER_ACCESS_TOKEN));
         // Category dropdown setup
         String[] category_options = {"PLUMBING", "ELECTRICAL", "CARPENTRY", "PAINTING", "GARDENING", "CLEANING", "MOVING", "OTHER"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, category_options);
@@ -97,7 +97,7 @@ public class Activity_Employer_NewJobOffer extends Employer_Drawer {
         mediaContainer.addView(mediaInput);
     }
 
-    private void submitJobOffer(String token) {
+    private void editJobOffer(String token) {
         try {
             JSONObject body = new JSONObject();
             body.put("title", mJobTitle.getText().toString().trim());
@@ -132,8 +132,8 @@ public class Activity_Employer_NewJobOffer extends Employer_Drawer {
 
     private void sendRequest(String token, JSONObject body) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, API_URL, body,
-                response -> Toast.makeText(this, "Offre publiée avec succès!", Toast.LENGTH_LONG).show(),
-                error -> Toast.makeText(this, "Erreur de publication", Toast.LENGTH_SHORT).show()
+                response -> Toast.makeText(this, "Offre modifié avec succès!", Toast.LENGTH_LONG).show(),
+                error -> Toast.makeText(this, "Erreur de modification", Toast.LENGTH_SHORT).show()
         ) {
             @Override
             public Map<String, String> getHeaders() {

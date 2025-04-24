@@ -109,7 +109,6 @@ public class Activity_Signup_Form extends AppCompatActivity {
             json.put("phoneNumber", phoneField.getText().toString());
             json.put("address", addressField.getText().toString()); // You can make this dynamic
             json.put("gender", mGenderOptions.getText().toString()); // Or get from user input
-            json.put("profilePicture", "https://example.com/profile.jpg");
             json.put("email", emailField.getText().toString());
             json.put("password", passwordField.getText().toString());
             json.put("skills", new org.json.JSONArray().put("PAINTING"));
@@ -187,7 +186,6 @@ public class Activity_Signup_Form extends AppCompatActivity {
             json.put("phoneNumber", phoneField.getText().toString());
             json.put("address", "Default Address"); // You can make this dynamic
             json.put("gender", mGenderOptions.getText().toString()); // Or get from user input
-            json.put("profilePicture", "https://example.com/profile.jpg");
             json.put("email", emailField.getText().toString());
             json.put("password", passwordField.getText().toString());
 

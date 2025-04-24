@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -33,6 +34,8 @@
         <activity android:name=".controllers.Activity_Profile_Preference" android:exported="true" />
         <activity android:name=".controllers.Activity_Profile_Employee_Availability" android:exported="true" />
         <activity android:name=".controllers.Activity_Single_Job_Offer" android:exported="true"/>
+        <activity android:name=".controllers.Activity_EditJobOffer" android:exported="true" />
+        <activity android:name=".controllers.Activity_Job_Details" android:exported="true" />
         <activity
             android:name=".controllers.MainActivity"
             android:exported="true">

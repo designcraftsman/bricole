@@ -1,0 +1,38 @@
+<TableRow android:padding="8dp"
+    android:id="@+id/offers_row"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Offer Title -->
+    <TextView
+        android:id="@+id/candidates_name"
+        android:text="Oussama Fayz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp" />
+
+    <!-- Candidates Stats -->
+    <TextView
+        android:id="@+id/candidates_jobOffer"
+        android:text="Électricien - Installation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11sp" />
+
+
+    <!-- Actions -->
+    <TextView
+        android:id="@+id/candidates_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="En Attente"
+        android:textSize="11sp"
+        />
+
+    <!-- Actions -->
+    <ImageView
+        android:id="@+id/candidates_more_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/more"
+        android:layout_gravity="center" />
+</TableRow>
