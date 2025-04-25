@@ -37,6 +37,7 @@
         <activity android:name=".controllers.Activity_EditJobOffer" android:exported="true" />
         <activity android:name=".controllers.Activity_Job_Details" android:exported="true" />
         <activity android:name=".controllers.Activity_Notifications" android:exported="true" />
+        <activity android:name=".controllers.Activity_Employee_Profile_Details" android:exported="true"/>
         <activity
             android:name=".controllers.MainActivity"
             android:exported="true">

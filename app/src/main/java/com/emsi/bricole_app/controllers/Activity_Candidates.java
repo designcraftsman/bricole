@@ -128,7 +128,7 @@ public class Activity_Candidates extends Employer_Drawer {
                             int itemId = item.getItemId();
 
                             if (itemId == R.id.menu_view) {
-                                Intent viewIntent = new Intent(Activity_Candidates.this, Activity_EditJobOffer.class); // example activity
+                                Intent viewIntent = new Intent(Activity_Candidates.this, Activity_Employee_Profile_Details.class); // example activity
                                 viewIntent.putExtra("job_id", finalJobId);
                                 viewIntent.putExtra("employee_id", finalEmployeeId);
                                 startActivity(viewIntent);
