@@ -25,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Activity_Offers extends Employer_Drawer {
+public class Activity_Offers extends Drawer {
 
     private final String TAG = "Activity_Offers";
     private final String API_URL = "http://10.0.2.2:8080/api/employer/job/offers";

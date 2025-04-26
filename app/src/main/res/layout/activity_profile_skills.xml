@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Préférences"
+            android:text="Qualifications"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#000000" />
@@ -53,7 +53,7 @@
                 android:layout_marginBottom="16dp" />
 
             <ListView
-                android:id="@+id/listViewJobPreferences"
+                android:id="@+id/listViewJobSkills"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:choiceMode="multipleChoice"
@@ -61,7 +61,7 @@
                 android:dividerHeight="1dp"/>
 
             <Button
-                android:id="@+id/buttonSubmitPreferences"
+                android:id="@+id/buttonSubmitSkills"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Enregistrer"
@@ -69,5 +69,6 @@
                 android:backgroundTint="@color/orange"
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

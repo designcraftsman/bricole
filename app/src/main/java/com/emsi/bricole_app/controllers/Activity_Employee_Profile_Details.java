@@ -28,7 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Activity_Employee_Profile_Details extends Employee_Drawer {
+public class Activity_Employee_Profile_Details extends Drawer {
 
     private TextView userNameTextView, phoneTextView, skillsTextView,availabilityTextView,reviewsTextView;
     private ImageView profileImage;

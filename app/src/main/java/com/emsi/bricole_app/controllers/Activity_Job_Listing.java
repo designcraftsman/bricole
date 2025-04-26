@@ -22,7 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_Job_Listing extends Employee_Drawer {
+public class Activity_Job_Listing extends Drawer {
 
     private RecyclerView jobRecyclerView;
     private Spinner citySpinner;

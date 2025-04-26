@@ -19,7 +19,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Activity_Job_Details extends Employer_Drawer {
+public class Activity_Job_Details extends Drawer {
 
     private final String TAG = "Activity_Job_Details";
     private final String API_URL_BASE = "http://10.0.2.2:8080/api/main/jobs/search/";

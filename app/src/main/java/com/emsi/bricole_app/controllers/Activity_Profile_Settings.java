@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.emsi.bricole_app.controllers.VolleyMultipartRequest;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,7 +18,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.emsi.bricole_app.R;
-import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,7 +26,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Activity_Profile_Settings extends Employer_Drawer {
+public class Activity_Profile_Settings extends Drawer {
 
     private ImageButton mBackBtn;
     private LinearLayout mQualificationsSection, mPreferenceSection, mAvailabilitySection;
@@ -75,7 +72,7 @@ public class Activity_Profile_Settings extends Employer_Drawer {
         });
 
         mQualificationsSection.setOnClickListener(view -> {
-            startActivity(new Intent(this, Activity_Profile_Qualifications.class));
+            startActivity(new Intent(this, Activity_Profile_Skills.class));
         });
 
         mAvailabilitySection.setOnClickListener(view -> {

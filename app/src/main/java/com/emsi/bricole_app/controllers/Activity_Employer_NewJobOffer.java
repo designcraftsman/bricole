@@ -25,7 +25,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Activity_Employer_NewJobOffer extends Employer_Drawer {
+public class Activity_Employer_NewJobOffer extends Drawer {
 
     private TextView mBtnLoginRedirect;
 

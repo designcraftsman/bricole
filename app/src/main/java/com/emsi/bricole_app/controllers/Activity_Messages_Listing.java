@@ -12,7 +12,7 @@ import com.emsi.bricole_app.models.Chat;
 
 import java.util.ArrayList;
 
-public class Activity_Messages_Listing extends Employer_Drawer {
+public class Activity_Messages_Listing extends Drawer {
 
     RecyclerView chatRecyclerView;
     Activity_MessagesAdapter adapter;

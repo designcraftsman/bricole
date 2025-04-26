@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.emsi.bricole_app.R;
 import android.widget.Button;
 
-public class Activity_Employer_Dashboard extends Employer_Drawer {
+public class Activity_Employer_Dashboard extends Drawer {
     private Button mBtnNewJob;
 
     @Override

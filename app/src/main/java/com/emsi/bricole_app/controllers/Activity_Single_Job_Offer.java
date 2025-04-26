@@ -25,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class Activity_Single_Job_Offer extends Employee_Drawer {
+public class Activity_Single_Job_Offer extends Drawer {
     private ImageView backButton;
     private TextView txtRetour, txtPostedBy, txtTitle, txtLocation;
     private TextView txtMissionLabel, txtMission1, txtMission2, txtMission3;
