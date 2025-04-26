@@ -92,19 +92,21 @@ public class Drawer extends AppCompatActivity {
         } else if (id == R.id.nav_messages) {
             startActivity(new Intent(this, Activity_Messages_Listing.class));
         }
-        // Add more employer-specific navigation actions here
+
     }
 
     private void handleEmployeeNavigation(int id) {
         if (id == R.id.nav_dashboard) {
             startActivity(new Intent(this, Activity_Job_Listing.class));
+        } else if (id == R.id.nav_applications) {
+            startActivity(new Intent(this, Activity_Applications.class));
         } else if (id == R.id.nav_offers) {
-            startActivity(new Intent(this, Activity_Offers.class));
+            startActivity(new Intent(this, Activity_Job_Listing.class));
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, Activity_Profile_Settings.class));
         } else if (id == R.id.nav_messages) {
             startActivity(new Intent(this, Activity_Messages_Listing.class));
         }
-        // Add more employee-specific navigation actions here
+
     }
 }

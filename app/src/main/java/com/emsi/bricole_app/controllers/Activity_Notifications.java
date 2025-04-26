@@ -23,21 +23,27 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_Notifications extends AppCompatActivity {
+import android.view.View;
+import android.widget.TextView; 
+
+public class Activity_Notifications extends Drawer {
     private RecyclerView recyclerView;
     private NotificationsAdapter adapter;
     private List<Notification> notificationList;
-    private static final String API_URL = "http://10.0.2.2:8080/api/user/notifications"; // 10.0.2.2 for Android Emulator
+    private static final String API_URL = "http://10.0.2.2:8080/api/user/notifications";
     private SharedPreferences prefs;
     private String USER_ACCESS_TOKEN;
+    private TextView noNotificationsText; // <-- ADD this
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
+        setupDrawer(R.layout.activity_notifications);
 
         recyclerView = findViewById(R.id.notificationRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        noNotificationsText = findViewById(R.id.noNotificationsText); // <-- FIND it
 
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
@@ -60,17 +66,25 @@ public class Activity_Notifications extends AppCompatActivity {
                     try {
                         JSONArray dataArray = response.getJSONArray("data");
 
-                        for (int i = 0; i < dataArray.length(); i++) {
-                            JSONObject obj = dataArray.getJSONObject(i);
-                            int id = obj.getInt("notificationId");
-                            int senderId = obj.getInt("senderId");
-                            String message = obj.getString("message");
-                            String sentAt = obj.getString("sentAt");
+                        if (dataArray.length() == 0) {
+                            // No notifications
+                            noNotificationsText.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                        } else {
+                            for (int i = 0; i < dataArray.length(); i++) {
+                                JSONObject obj = dataArray.getJSONObject(i);
+                                int id = obj.getInt("notificationId");
+                                int senderId = obj.getInt("senderId");
+                                String message = obj.getString("message");
+                                String sentAt = obj.getString("sentAt");
 
-                            notificationList.add(new Notification(id, senderId, message, sentAt));
+                                notificationList.add(new Notification(id, senderId, message, sentAt));
+                            }
+
+                            adapter.notifyDataSetChanged();
+                            noNotificationsText.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
                         }
-
-                        adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Toast.makeText(this, "Error parsing notifications", Toast.LENGTH_SHORT).show();
@@ -100,6 +114,12 @@ public class Activity_Notifications extends AppCompatActivity {
                 response -> {
                     Toast.makeText(this, "Notification deleted", Toast.LENGTH_SHORT).show();
                     adapter.removeItem(position);
+
+                    // After deleting, check if list is empty
+                    if (adapter.getItemCount() == 0) {
+                        noNotificationsText.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                    }
                 },
                 error -> {
                     error.printStackTrace();
@@ -115,6 +135,4 @@ public class Activity_Notifications extends AppCompatActivity {
 
         queue.add(request);
     }
-
-
 }
