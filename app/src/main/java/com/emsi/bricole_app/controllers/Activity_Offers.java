@@ -182,12 +182,12 @@ public class Activity_Offers extends Drawer {
 
                     if (itemId == R.id.menu_view) {
                         Intent viewIntent = new Intent(Activity_Offers.this, Activity_Job_Details.class);
-                        viewIntent.putExtra("offer_id", offerId);
+                        viewIntent.putExtra("job_id", offerId);
                         startActivity(viewIntent);
                         return true;
                     } else if (itemId == R.id.menu_edit) {
                         Intent editIntent = new Intent(Activity_Offers.this, Activity_EditJobOffer.class);
-                        editIntent.putExtra("offer_id", offerId);
+                        editIntent.putExtra("job_id", offerId);
                         startActivity(editIntent);
                         return true;
                     } else if (itemId == R.id.menu_delete) {
@@ -215,6 +215,4 @@ public class Activity_Offers extends Drawer {
         Log.d(TAG, "Delete offer ID: " + offerId);
         // You can add a confirmation dialog and API call here
     }
-
-
 }

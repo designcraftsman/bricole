@@ -28,12 +28,17 @@ public class Drawer extends AppCompatActivity {
 
     protected void setupDrawer(int layoutResID) {
         // Get user role from SharedPreferences
-        SharedPreferences prefs = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-        userRole = prefs.getString("role", "EMPLOYEE"); // default to Employee if missing
-
+        SharedPreferences prefs = getSharedPreferences("auth", Context.MODE_PRIVATE);
+        userRole = prefs.getString("role",null); // default to Employee if missing
         // Choose layout based on role
-        int drawerLayoutRes = userRole.equalsIgnoreCase("EMPLOYER") ?
+
+        System.out.println("User role is :" + userRole);
+
+        boolean isEmployer = userRole != null && userRole.equalsIgnoreCase("employer");
+
+        int drawerLayoutRes = isEmployer ?
                 R.layout.employer_drawer_layout : R.layout.employee_drawer_layout;
+
 
         DrawerLayout fullLayout = (DrawerLayout) getLayoutInflater().inflate(drawerLayoutRes, null);
         FrameLayout container = fullLayout.findViewById(R.id.content_frame);
@@ -69,7 +74,8 @@ public class Drawer extends AppCompatActivity {
         navView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
 
-            if (userRole.equalsIgnoreCase("Employer")) {
+            if (userRole != null && userRole.equalsIgnoreCase("employer"))
+            {
                 handleEmployerNavigation(id);
             } else {
                 handleEmployeeNavigation(id);
@@ -91,6 +97,18 @@ public class Drawer extends AppCompatActivity {
             startActivity(new Intent(this, Activity_Profile_Settings.class));
         } else if (id == R.id.nav_messages) {
             startActivity(new Intent(this, Activity_Messages_Listing.class));
+        }else if (id == R.id.nav_signout) {
+            // Clear SharedPreferences
+            SharedPreferences prefs = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.apply();
+
+            // Redirect to SignIn Activity
+            Intent intent = new Intent(this, Activity_Signin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear backstack
+            startActivity(intent);
+            finish(); // Finish current activity
         }
 
     }
@@ -106,6 +124,18 @@ public class Drawer extends AppCompatActivity {
             startActivity(new Intent(this, Activity_Profile_Settings.class));
         } else if (id == R.id.nav_messages) {
             startActivity(new Intent(this, Activity_Messages_Listing.class));
+        }else if (id == R.id.nav_signout) {
+            // Clear SharedPreferences
+            SharedPreferences prefs = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.clear();
+            editor.apply();
+
+            // Redirect to SignIn Activity
+            Intent intent = new Intent(this, Activity_Signin.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear backstack
+            startActivity(intent);
+            finish(); // Finish current activity
         }
 
     }
