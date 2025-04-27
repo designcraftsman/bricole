@@ -211,8 +211,34 @@ public class Activity_Offers extends Drawer {
     }
 
     private void deleteOffer(int offerId) {
-        // Call your API to delete the offer and refresh the list if needed
-        Log.d(TAG, "Delete offer ID: " + offerId);
-        // You can add a confirmation dialog and API call here
+        OkHttpClient client = new OkHttpClient();
+
+        String deleteUrl = "http://10.0.2.2:8080/api/employer/job/" + offerId + "/delete";
+
+        Request deleteRequest = new Request.Builder()
+                .url(deleteUrl)
+                .delete()
+                .addHeader("Authorization", "Bearer " + USER_ACCESS_TOKEN)
+                .build();
+
+        client.newCall(deleteRequest).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "Delete offer API call failed: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "Offer deleted successfully");
+                    runOnUiThread(() -> {
+                        fetchOffers(); // Refresh offers after successful deletion
+                    });
+                } else {
+                    Log.e(TAG, "Delete offer API response not successful: Code " + response.code());
+                }
+            }
+        });
     }
+
 }

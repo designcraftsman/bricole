@@ -50,7 +50,16 @@ public class Activity_ApplicationAdapter extends RecyclerView.Adapter<Activity_A
                 onCancelClickListener.onCancelClick(application.getId(), holder.getAdapterPosition());
             }
         });
+
+        // 🚀 Add this part to open Application Details when clicking the item
+        holder.itemView.setOnClickListener(v -> {
+            android.content.Context context = v.getContext();
+            android.content.Intent intent = new android.content.Intent(context, Activity_Application_Details.class);
+            intent.putExtra("application_id", application.getId()); // send the id
+            context.startActivity(intent);
+        });
     }
+
 
     @Override
     public int getItemCount() {
