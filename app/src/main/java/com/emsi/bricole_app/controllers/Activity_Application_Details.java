@@ -121,6 +121,4 @@ public class Activity_Application_Details extends Drawer {
         }
     }
 
-
-
 }

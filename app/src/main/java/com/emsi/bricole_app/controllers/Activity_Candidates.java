@@ -32,6 +32,8 @@ public class Activity_Candidates extends Drawer {
     private SharedPreferences prefs;
     private String USER_ACCESS_TOKEN;
 
+    private int job_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,9 +130,11 @@ public class Activity_Candidates extends Drawer {
                             int itemId = item.getItemId();
 
                             if (itemId == R.id.menu_view) {
-                                Intent viewIntent = new Intent(Activity_Candidates.this, Activity_Employee_Profile_Details.class); // example activity
+                                System.out.println("the id being sent is :" + finalJobId);
+                                Intent viewIntent = new Intent(Activity_Candidates.this, Activity_Application_View.class); // example activity
                                 viewIntent.putExtra("job_id", finalJobId);
                                 viewIntent.putExtra("employee_id", finalEmployeeId);
+                                viewIntent.putExtra("employee_name", fullName);
                                 startActivity(viewIntent);
                                 return true;
                             } else if (itemId == R.id.menu_edit) {

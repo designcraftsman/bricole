@@ -2,6 +2,7 @@ package com.emsi.bricole_app.controllers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,9 +16,15 @@ import com.emsi.bricole_app.models.Employee;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +48,7 @@ public class Activity_Employee_Profile_Details extends Drawer {
     private final Gson gson = new Gson();
     private String USER_ACCESS_TOKEN;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +66,17 @@ public class Activity_Employee_Profile_Details extends Drawer {
 
 
         Intent intent = getIntent();
+
         int employeeId = intent.getIntExtra("employee_id", -1);
+        int jobId = intent.getIntExtra("job_id",-1);
 
         if (employeeId != -1) {
             fetchEmployeeProfile(employeeId);
         } else {
-            Log.e(TAG, "No job_id passed in intent");
+            Log.e(TAG, "No employee id passed in intent");
         }
     }
+
 
     private void fetchEmployeeProfile(int jobId) {
         String url = API_BASE_URL + jobId;

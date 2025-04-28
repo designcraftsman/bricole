@@ -40,6 +40,7 @@
         <activity android:name=".controllers.Activity_Employee_Profile_Details" android:exported="true"/>
         <activity android:name=".controllers.Activity_Applications" android:exported="true" />
         <activity android:name=".controllers.Activity_Application_Details" android:exported="true" />
+        <activity android:name=".controllers.Activity_Application_View" android:exported="true" />
         <activity
             android:name=".controllers.MainActivity"
             android:exported="true">
