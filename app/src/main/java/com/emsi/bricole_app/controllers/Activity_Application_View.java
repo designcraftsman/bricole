@@ -2,6 +2,7 @@ package com.emsi.bricole_app.controllers;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -60,7 +61,8 @@ public class Activity_Application_View extends Drawer{
         employee_name = intent.getStringExtra("employee_name");
 
         txtEmployeeName.setText(employee_name != null ? employee_name : "Unknown Employee");
-        
+
+        txtEmployeeName.setPaintFlags(txtEmployeeName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         txtEmployeeName.setOnClickListener(view->{
             Intent intent1 = new Intent(this, Activity_Employee_Profile_Details.class);

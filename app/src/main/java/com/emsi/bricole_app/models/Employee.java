@@ -12,5 +12,5 @@ public class Employee {
     public String profilePictureUrl;
     public Map<String, String> availabilityMap;
     public List<String> jobPreferences;
-    public List<Object> reviews;
+    public List<Review> reviews;
 }
