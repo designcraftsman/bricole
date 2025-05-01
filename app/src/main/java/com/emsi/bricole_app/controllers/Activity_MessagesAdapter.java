@@ -9,16 +9,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.emsi.bricole_app.R;
 import com.emsi.bricole_app.models.Chat;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 public class Activity_MessagesAdapter extends RecyclerView.Adapter<Activity_MessagesAdapter.ChatViewHolder> {
 
     Context context;
     List<Chat> messageList;
-
+    private static final String IMAGE_BASE_URL = "http://10.0.2.2:8080/images/profile/";
     OnChatClickListener listener;
 
     public interface OnChatClickListener {
@@ -43,7 +46,18 @@ public class Activity_MessagesAdapter extends RecyclerView.Adapter<Activity_Mess
         holder.senderName.setText(message.name);
         holder.lastMessage.setText(message.lastMessage);
         holder.messageTime.setText(message.date);
-        holder.avatar.setImageResource(message.avatar);
+        try {
+            String imageUrl = IMAGE_BASE_URL +
+                    URLEncoder.encode(message.profilePictureUrl, "UTF-8") +
+                    "?t=" + System.currentTimeMillis();
+
+            Glide.with(context)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.avatar)
+                    .into(holder.avatar);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onChatClick(message);

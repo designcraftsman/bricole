@@ -1,5 +1,6 @@
 package com.emsi.bricole_app.controllers;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,12 @@ public class Activity_Job_Details extends Drawer {
 
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
+
+        txtPostedBy.setOnClickListener(view->{
+            Intent intent = new Intent(this, Activity_Employer_Profile_Details.class);
+            intent.putExtra("employer_id", 1);
+            startActivity(intent);
+        });
 
         int offerId = getIntent().getIntExtra("offer_id", -1);
         if (offerId != -1) {

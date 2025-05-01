@@ -1,5 +1,6 @@
 package com.emsi.bricole_app.controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class Activity_Single_Job_Offer extends Drawer {
     private TextView txtSkillsLabel, txtSkill1, txtSkill2, txtSkill3;
     private TextView txtContact;
 
+    private int employerId;
     private Button btnApply;
 
     private ScrollView scrollView;
@@ -88,6 +90,7 @@ public class Activity_Single_Job_Offer extends Drawer {
         // Apply button
         btnApply = findViewById(R.id.btnApply);
 
+
         btnApply.setOnClickListener(v -> {
             if (jobId != -1) {
                 applyToJob(jobId);
@@ -96,6 +99,11 @@ public class Activity_Single_Job_Offer extends Drawer {
             }
         });
 
+        txtPostedBy.setOnClickListener(view->{
+            Intent intent = new Intent(Activity_Single_Job_Offer.this, Activity_Employer_Profile_Details.class);
+            intent.putExtra("employer_id", employerId);
+            startActivity(intent);
+        });
 
         // Optional: back button functionality
         if (backButton != null) {
@@ -129,7 +137,7 @@ public class Activity_Single_Job_Offer extends Drawer {
                         String description = job.getString("description");
                         String location = job.getString("location");
                         JSONArray missions = job.getJSONArray("missions");
-
+                        employerId = job.getInt("employerId");
                         runOnUiThread(() -> {
                             txtTitle.setText(title);
                             txtDescription.setText(description);

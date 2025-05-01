@@ -39,11 +39,11 @@ dependencies {
     implementation ("com.google.code.gson:gson:2.10.1")
     implementation("org.slf4j:slf4j-api:1.7.25")
     implementation ("com.android.volley:volley:1.2.1")
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+
 
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.volley)
