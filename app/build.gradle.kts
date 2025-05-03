@@ -26,29 +26,42 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    implementation("androidx.drawerlayout:drawerlayout:1.2.0") // ✅ This one is essential for the drawer
-    implementation("com.google.android.material:material:1.11.0") // Material components (NavigationView, etc.)
-    implementation("androidx.appcompat:appcompat:1.6.1") // AppCompat for Toolbar support
-    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
-    implementation ("com.google.code.gson:gson:2.10.1")
+    // Core UI
+    implementation("androidx.drawerlayout:drawerlayout:1.2.0")
+    implementation("com.google.android.material:material:1.11.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+
+    // Network & JSON
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation("org.slf4j:slf4j-api:1.7.25")
-    implementation ("com.android.volley:volley:1.2.1")
+
+    implementation ("io.reactivex.rxjava2:rxjava:2.2.21")
+    implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
+    implementation ("com.github.NaikSoftware:StompProtocolAndroid:1.6.6")
 
 
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
+    // Volley – use only one method
     implementation(libs.volley)
 
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
+    // Other libraries (from version catalog)
+    implementation(libs.activity)
+    implementation(libs.constraintlayout)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+

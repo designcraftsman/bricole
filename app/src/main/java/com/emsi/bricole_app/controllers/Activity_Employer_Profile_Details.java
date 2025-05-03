@@ -63,6 +63,9 @@ public class Activity_Employer_Profile_Details extends Drawer {
         msgButton.setOnClickListener(v -> {
             Intent intent = new Intent(Activity_Employer_Profile_Details.this, Activity_Chat_Conversation.class);
             intent.putExtra("receiver_id",employerId);
+            intent.putExtra("isNewConversation", true);
+            intent.putExtra("user2_name", userNameTextView.getText());
+            intent.putExtra("user2_image", phoneTextView.getText());
             startActivity(intent);
         });
 

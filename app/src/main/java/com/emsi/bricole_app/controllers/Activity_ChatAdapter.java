@@ -25,7 +25,7 @@ public class Activity_ChatAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
-        return messages.get(position).type;
+        return messages.get(position).getType();
     }
 
     @NonNull
@@ -44,11 +44,11 @@ public class Activity_ChatAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ChatMessage message = messages.get(position);
         if (holder instanceof SentViewHolder) {
-            ((SentViewHolder) holder).messageText.setText(message.message);
-            ((SentViewHolder) holder).timeText.setText(message.time);
+            ((SentViewHolder) holder).messageText.setText(message.getContent());
+            ((SentViewHolder) holder).timeText.setText(message.getTime());
         } else {
-            ((ReceivedViewHolder) holder).messageText.setText(message.message);
-            ((ReceivedViewHolder) holder).timeText.setText(message.time);
+            ((ReceivedViewHolder) holder).messageText.setText(message.getContent());
+            ((ReceivedViewHolder) holder).timeText.setText(message.getTime());
         }
     }
 

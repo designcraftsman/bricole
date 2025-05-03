@@ -29,6 +29,7 @@
            android:layout_marginRight="12dp" />
 
         <ImageView
+            android:id="@+id/user2_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/avatar"
@@ -45,6 +46,7 @@
 
 
             <TextView
+                android:id="@+id/user2_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Smith Mathew"
@@ -53,6 +55,7 @@
                 android:textStyle="bold"/>
 
             <TextView
+                android:id="@+id/user2_status"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="Active Now"
@@ -106,6 +109,8 @@
             android:textSize="14sp"
             android:layout_marginHorizontal="8dp"/>
         <ImageView
+            android:id="@+id/send_button"
+            android:clickable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/send"

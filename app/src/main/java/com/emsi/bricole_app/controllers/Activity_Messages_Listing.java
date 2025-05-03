@@ -56,9 +56,11 @@ public class Activity_Messages_Listing extends Drawer {
         chatMessages = new ArrayList<>();
         adapter = new Activity_MessagesAdapter(this, chatMessages, chat -> {
             Intent intent = new Intent(Activity_Messages_Listing.this, Activity_Chat_Conversation.class);
-            intent.putExtra("name", chat.getName());
-            intent.putExtra("chat_id", chat.chatId);
-            intent.putExtra("other_user_id", chat.otherUserId);
+            intent.putExtra("user2_name", chat.getName());
+            intent.putExtra("conversation_id", chat.chatId);
+            intent.putExtra("user2_image", chat.getProfilePictureUrl());
+            intent.putExtra("receiver_id", chat.otherUserId);
+            intent.putExtra("isNewConversation", false);
             startActivity(intent);
         });
 
@@ -87,7 +89,6 @@ public class Activity_Messages_Listing extends Drawer {
 
                             JSONObject otherUser = (user1.getInt("id") == user_id) ? user2 : user1;
                             String name = otherUser.getString("firstname") + " " + otherUser.getString("lastname");
-                            String profilePic = otherUser.getString("profilePicture");
                             String lastMsg = convo.optString("lastMessage", "");
                             String lastMsgAt = convo.optString("lastMessageAt", "");
                             String profilePicture = otherUser.getString("profilePicture");
