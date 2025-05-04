@@ -110,31 +110,28 @@ public class Activity_Chat_Conversation extends Drawer {
 
         sendButton.setOnClickListener(v -> {
             String messageText = messageEditText.getText().toString().trim();
-            if (!messageText.isEmpty()) {
-                ChatMessage chatMessage = new ChatMessage();
-                chatMessage.setSenderId(senderId);
-                chatMessage.setReceiverId(receiver_id);
-                chatMessage.setContent(messageText);
-                chatMessage.setConversationId(conversationId);
-                chatMessage.setType(ChatMessage.TYPE_SENT);
-
-                // Add immediately to UI
-                chatMessageList.add(chatMessage);
-                chatAdapter.notifyItemInserted(chatMessageList.size() - 1);
-                chatRecyclerView.scrollToPosition(chatMessageList.size() - 1);
-                messageEditText.setText("");
-
-                // Log the message being sent
-                Log.d("WebSocket", "Sending message: " + messageText);
-
-                // Build DTO to send
+            if (!messageText.isEmpty() && stompClient != null && stompClient.isConnected()) {
                 ChatMessageDTO dto = new ChatMessageDTO();
                 dto.setSenderId(senderId);
                 dto.setReceiverId(receiver_id);
                 dto.setRoom(String.valueOf(conversationId));
                 dto.setContent(messageText);
-                dto.setSenderFirstName("Me");  // Optional
+                dto.setSenderFirstName("Me");
 
+                // Add to UI immediately (optimistic update)
+                ChatMessage chatMessage = new ChatMessage();
+                chatMessage.setSenderId(senderId);
+                chatMessage.setContent(messageText);
+                chatMessage.setType(ChatMessage.TYPE_SENT);
+
+                runOnUiThread(() -> {
+                    chatMessageList.add(chatMessage);
+                    chatAdapter.notifyItemInserted(chatMessageList.size() - 1);
+                    chatRecyclerView.scrollToPosition(chatMessageList.size() - 1);
+                    messageEditText.setText("");
+                });
+
+                // Send via WebSocket
                 String messageJson = new Gson().toJson(dto);
                 stompClient.send("/app/chat.sendMessage", messageJson).subscribe();
             }
@@ -152,51 +149,57 @@ public class Activity_Chat_Conversation extends Drawer {
 
 
     private void initializeWebSocket() {
-
         String socketUrl = "ws://10.0.2.2:8080/ws?token=" + USER_ACCESS_TOKEN;
-        // Create the headers list with Authorization header
         List<StompHeader> headers = new ArrayList<>();
         headers.add(new StompHeader("Authorization", "Bearer " + USER_ACCESS_TOKEN));
 
-        // Initialize and connect with headers
         stompClient = Stomp.over(Stomp.ConnectionProvider.OKHTTP, socketUrl);
-        stompClient.connect(headers);
 
-
-        // Debugging - Log WebSocket Connection events
         stompClient.lifecycle().subscribe(lifecycleEvent -> {
             switch (lifecycleEvent.getType()) {
                 case OPENED:
-                    Log.d("WebSocket", "WebSocket opened successfully.");
+                    Log.d("WebSocket", "WebSocket opened successfully");
+                    // Only enable send button after connection is established
+                    sendButton.setEnabled(true);
+                    subscribeToConversation();
                     break;
                 case ERROR:
-                    Log.e("WebSocket", "WebSocket connection error: " + lifecycleEvent.getException());
+                    Log.e("WebSocket", "Error: " + lifecycleEvent.getException());
                     break;
                 case CLOSED:
-                    Log.d("WebSocket", "WebSocket connection closed: " + lifecycleEvent.getMessage());
+                    Log.d("WebSocket", "Connection closed");
                     break;
             }
         });
 
-        // Debugging - Subscribe to topic messages
+        stompClient.connect(headers);
+    }
+
+    private void subscribeToConversation() {
         stompClient.topic("/topic/room/" + conversationId)
                 .subscribe((StompMessage topicMessage) -> {
                     String payload = topicMessage.getPayload();
-                    Log.d("WebSocket", "Received message: " + payload); // Log the received payload
+                    Log.d("WebSocket", "Received message: " + payload);
 
                     ChatMessageResponseDTO response = new Gson().fromJson(payload, ChatMessageResponseDTO.class);
 
-                    ChatMessage message = new ChatMessage();
-                    message.setSenderId(response.getSenderId());
-                    message.setContent(response.getContent());
-                    message.setType(response.getSenderId() == senderId ? ChatMessage.TYPE_SENT : ChatMessage.TYPE_RECEIVED);
+                    runOnUiThread(() -> {
+                        ChatMessage message = new ChatMessage();
+                        message.setSenderId(response.getSenderId());
+                        message.setContent(response.getContent());
+                        if (response.getSenderId() == senderId) {
+                            // Optionally skip adding own message (already added in sendButton.onClick)
+                            return;
+                        }
+                        message.setType(ChatMessage.TYPE_RECEIVED);
 
-                    addMessage(message);
+
+                        addMessage(message);
+                    });
                 }, throwable -> {
                     Log.e("WebSocket", "Subscription error: " + throwable.getMessage());
                 });
     }
-
 
 
 
