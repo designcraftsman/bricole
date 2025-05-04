@@ -23,6 +23,7 @@ import com.emsi.bricole_app.models.ChatMessageDTO;
 import com.emsi.bricole_app.models.ChatMessageResponseDTO;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -246,29 +247,32 @@ public class Activity_Chat_Conversation extends Drawer {
     private void loadConversation(int conversationId) {
         String jwtToken = "Bearer " + USER_ACCESS_TOKEN;
 
-        JsonArrayRequest request = new JsonArrayRequest(
+        JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
                 "http://10.0.2.2:8080/api/chat/conversation/" + conversationId,
                 null,
                 response -> {
-                    Gson gson = new Gson();
-                    for (int i = 0; i < response.length(); i++) {
-                        try {
-                            JSONObject messageObj = response.getJSONObject(i);
-                            ChatMessageResponseDTO msgDto = gson.fromJson(messageObj.toString(), ChatMessageResponseDTO.class);
+                    try {
+                        Gson gson = new Gson();
+                        JSONArray messagesArray = response.getJSONArray("messages");
 
+                        for (int i = 0; i < messagesArray.length(); i++) {
+                            JSONObject messageObj = messagesArray.getJSONObject(i);
+                            ChatMessageResponseDTO msgDto = gson.fromJson(messageObj.toString(), ChatMessageResponseDTO.class);
+                            System.out.println("chat message response dto is " + msgDto);
                             ChatMessage message = new ChatMessage();
                             message.setSenderId(msgDto.getSenderId());
                             message.setContent(msgDto.getContent());
                             message.setType(msgDto.getSenderId() == senderId ? ChatMessage.TYPE_SENT : ChatMessage.TYPE_RECEIVED);
-
                             chatMessageList.add(message);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+
+                        chatAdapter.notifyDataSetChanged();
+                        chatRecyclerView.scrollToPosition(chatMessageList.size() - 1);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    chatAdapter.notifyDataSetChanged();
-                    chatRecyclerView.scrollToPosition(chatMessageList.size() - 1);
                 },
                 error -> {
                     Log.e("Chat", "Conversation load error: " + error.toString());
@@ -286,6 +290,7 @@ public class Activity_Chat_Conversation extends Drawer {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(request);
     }
+
 
 
 }
