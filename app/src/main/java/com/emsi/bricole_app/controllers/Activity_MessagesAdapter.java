@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.emsi.bricole_app.R;
 import com.emsi.bricole_app.models.Chat;
+import com.emsi.bricole_app.models.Job;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -39,6 +40,12 @@ public class Activity_MessagesAdapter extends RecyclerView.Adapter<Activity_Mess
         View view = LayoutInflater.from(context).inflate(R.layout.component_chat, parent, false);
         return new ChatViewHolder(view);
     }
+
+    public void updateList(List<Chat> newList) {
+        this.messageList = newList;
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public void onBindViewHolder(ChatViewHolder holder, int position) {

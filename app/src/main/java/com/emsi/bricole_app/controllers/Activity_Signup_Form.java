@@ -47,8 +47,6 @@ public class Activity_Signup_Form extends AppCompatActivity {
         mGenderOptions = findViewById(R.id.Gender_Options);
         birthDateField = findViewById(R.id.Birth_Date);
 
-
-
         mGender.setHint("genre");
 
         mGender.setOnClickListener(view->{
@@ -184,7 +182,7 @@ public class Activity_Signup_Form extends AppCompatActivity {
             json.put("lastname", lastNameField.getText().toString());
             json.put("phoneNumberPrefix", phonePrefixField.getText().toString()); // Assuming Morocco
             json.put("phoneNumber", phoneField.getText().toString());
-            json.put("address", "Default Address"); // You can make this dynamic
+            json.put("address", addressField.getText().toString()); // You can make this dynamic
             json.put("gender", mGenderOptions.getText().toString()); // Or get from user input
             json.put("email", emailField.getText().toString());
             json.put("password", passwordField.getText().toString());

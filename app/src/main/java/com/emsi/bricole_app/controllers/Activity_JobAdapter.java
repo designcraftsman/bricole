@@ -24,6 +24,10 @@ public class Activity_JobAdapter extends RecyclerView.Adapter<Activity_JobAdapte
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_job_card, parent, false);
         return new JobViewHolder(view);
     }
+    public void updateList(List<Job> newList) {
+        this.jobList = newList;
+        notifyDataSetChanged();
+    }
 
     @Override
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {

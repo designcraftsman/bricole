@@ -1,6 +1,8 @@
 package com.emsi.bricole_app.controllers;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,8 +32,8 @@ public class Activity_Job_Listing extends Drawer {
     private Activity_JobAdapter adapter;
     private List<Job> jobList;
     private RequestQueue requestQueue;
-
     private static final String JOBS_API_URL = "http://10.0.2.2:8080/api/main/jobs";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,32 @@ public class Activity_Job_Listing extends Drawer {
 
         requestQueue = Volley.newRequestQueue(this);
         fetchJobsFromApi();
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterJobsByTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
     }
 
+    private void filterJobsByTitle(String query) {
+        List<Job> filteredList = new ArrayList<>();
+        for (Job job : jobList) {
+            if (job.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(job);
+            }
+        }
+
+        adapter.updateList(filteredList);
+    }
     private void fetchJobsFromApi() {
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,

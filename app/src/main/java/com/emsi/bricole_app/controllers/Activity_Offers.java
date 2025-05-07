@@ -1,5 +1,8 @@
 package com.emsi.bricole_app.controllers;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
@@ -29,14 +32,17 @@ public class Activity_Offers extends Drawer {
 
     private final String TAG = "Activity_Offers";
     private final String API_URL = "http://10.0.2.2:8080/api/employer/job/offers";
-
+    private TextView txtEmptyOffers;
     private SharedPreferences prefs;
     private String USER_ACCESS_TOKEN;
+    private JSONArray offersArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupDrawer(R.layout.activity_offers);
+
+        txtEmptyOffers = findViewById(R.id.txtEmptyOffers);
 
         // Get the access token from shared preferences
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
@@ -80,47 +86,55 @@ public class Activity_Offers extends Drawer {
                         public void onResponse(Call call, Response applicantsResponse) throws IOException {
                             if (applicantsResponse.isSuccessful()) {
                                 final String applicantsJson = applicantsResponse.body().string();
-
                                 runOnUiThread(() -> {
                                     try {
-                                        JSONArray offersArray = new JSONArray(offersJson);
-                                        JSONArray applicantsArray = new JSONArray(applicantsJson);
+                                        offersArray = new JSONArray(offersJson);
+                                        if(offersArray.length()==0){
+                                            txtEmptyOffers.setVisibility(VISIBLE);
+                                        }else {
+                                            txtEmptyOffers.setVisibility(INVISIBLE);
+                                            JSONArray applicantsArray = new JSONArray(applicantsJson);
+                                            // Enrich each offer with accepted/pending/rejected counts
+                                            for (int i = 0; i < offersArray.length(); i++) {
+                                                JSONObject offer = offersArray.getJSONObject(i);
+                                                int jobId = offer.getInt("id");
 
-                                        // Enrich each offer with accepted/pending/rejected counts
-                                        for (int i = 0; i < offersArray.length(); i++) {
-                                            JSONObject offer = offersArray.getJSONObject(i);
-                                            int jobId = offer.getInt("id");
+                                                int accepted = 0;
+                                                int pending = 0;
+                                                int rejected = 0;
 
-                                            int accepted = 0;
-                                            int pending = 0;
-                                            int rejected = 0;
+                                                for (int j = 0; j < applicantsArray.length(); j++) {
+                                                    JSONObject jobApplicantObj = applicantsArray.getJSONObject(j);
+                                                    JSONObject job = jobApplicantObj.getJSONObject("job");
+                                                    int applicantJobId = job.getInt("id");
 
-                                            for (int j = 0; j < applicantsArray.length(); j++) {
-                                                JSONObject jobApplicantObj = applicantsArray.getJSONObject(j);
-                                                JSONObject job = jobApplicantObj.getJSONObject("job");
-                                                int applicantJobId = job.getInt("id");
-
-                                                if (applicantJobId == jobId) {
-                                                    JSONArray applicants = jobApplicantObj.getJSONArray("applicants");
-                                                    for (int k = 0; k < applicants.length(); k++) {
-                                                        JSONObject applicant = applicants.getJSONObject(k);
-                                                        String state = applicant.getString("applicationState");
-                                                        switch (state) {
-                                                            case "PENDING": pending++; break;
-                                                            case "ACCEPTED": accepted++; break;
-                                                            case "REJECTED": rejected++; break;
+                                                    if (applicantJobId == jobId) {
+                                                        JSONArray applicants = jobApplicantObj.getJSONArray("applicants");
+                                                        for (int k = 0; k < applicants.length(); k++) {
+                                                            JSONObject applicant = applicants.getJSONObject(k);
+                                                            String state = applicant.getString("applicationState");
+                                                            switch (state) {
+                                                                case "PENDING":
+                                                                    pending++;
+                                                                    break;
+                                                                case "ACCEPTED":
+                                                                    accepted++;
+                                                                    break;
+                                                                case "REJECTED":
+                                                                    rejected++;
+                                                                    break;
+                                                            }
                                                         }
                                                     }
                                                 }
+
+                                                offer.put("pending", pending);
+                                                offer.put("accepted", accepted);
+                                                offer.put("rejected", rejected);
                                             }
 
-                                            offer.put("pending", pending);
-                                            offer.put("accepted", accepted);
-                                            offer.put("rejected", rejected);
+                                            displayOffers(offersArray);
                                         }
-
-                                        displayOffers(offersArray);
-
                                     } catch (JSONException e) {
                                         Log.e(TAG, "JSON parsing error: " + e.getMessage());
                                     }

@@ -89,4 +89,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/txtEmptyChat"
+        app:layout_constraintTop_toBottomOf="@id/recentMessagesTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Vous n'avez aucune conversation" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

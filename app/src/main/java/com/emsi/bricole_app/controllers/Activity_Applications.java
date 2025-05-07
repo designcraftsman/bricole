@@ -2,6 +2,9 @@ package com.emsi.bricole_app.controllers;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,12 +18,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.emsi.bricole_app.R;
 import com.emsi.bricole_app.models.Application;
+import com.emsi.bricole_app.models.Job;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Activity_Applications extends Drawer {
 
@@ -29,6 +34,7 @@ public class Activity_Applications extends Drawer {
     private ArrayList<Application> applicationList;
     private static final String API_URL = "http://10.0.2.2:8080/api/employee/applications"; // use 10.0.2.2 for emulator
     private SharedPreferences prefs;
+    private EditText searchInput;
     private String USER_ACCESS_TOKEN;
 
     @Override
@@ -42,6 +48,20 @@ public class Activity_Applications extends Drawer {
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
 
+        searchInput = findViewById(R.id.searchInput);
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterApplicationsByTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
         applicationList = new ArrayList<>();
         adapter = new com.emsi.bricole_app.controllers.Activity_ApplicationAdapter(applicationList, (applicationId, position) -> {
             cancelApplication(applicationId, position);
@@ -52,6 +72,16 @@ public class Activity_Applications extends Drawer {
         fetchApplications();
     }
 
+    private void filterApplicationsByTitle(String query) {
+        List<Application> filteredList = new ArrayList<>();
+        for (Application application : applicationList) {
+            if (application.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(application);
+            }
+        }
+
+        adapter.updateList(filteredList);
+    }
     private void fetchApplications() {
         RequestQueue queue = Volley.newRequestQueue(this);
 

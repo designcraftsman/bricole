@@ -1,5 +1,8 @@
 package com.emsi.bricole_app.controllers;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,7 +34,7 @@ public class Activity_Candidates extends Drawer {
 
     private SharedPreferences prefs;
     private String USER_ACCESS_TOKEN;
-
+    private TextView txtEmptyCandidates;
     private int job_id;
 
     @Override
@@ -39,6 +42,7 @@ public class Activity_Candidates extends Drawer {
         super.onCreate(savedInstanceState);
         setupDrawer(R.layout.activity_candidates);
 
+        txtEmptyCandidates.findViewById(R.id.txtEmptyCandidates);
         // Get the access token from shared preferences
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
@@ -66,8 +70,13 @@ public class Activity_Candidates extends Drawer {
                     final String jsonData = response.body().string();
                     runOnUiThread(() -> {
                         try {
-                            JSONArray offersArray = new JSONArray(jsonData);
-                            displayCandidates(offersArray);
+                            JSONArray candidatesArray = new JSONArray(jsonData);
+                            if(candidatesArray.length() == 0){
+                                txtEmptyCandidates.setVisibility(VISIBLE);
+                            }else{
+                                txtEmptyCandidates.setVisibility(INVISIBLE);
+                                displayCandidates(candidatesArray);
+                            }
                         } catch (JSONException e) {
                             Log.e(TAG, "JSON parsing error: " + e.getMessage());
                         }

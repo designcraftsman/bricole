@@ -52,80 +52,98 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="16dp" />
 
-        <!-- Email Row -->
         <LinearLayout
-            android:id="@+id/emailRow"
-            android:layout_width="0dp"
+            android:id="@+id/personal_information"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
             app:layout_constraintTop_toBottomOf="@id/userName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp">
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/email"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
+            <!-- Vertical section: Email, Phone, Location -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="johndoe@example.com" />
-        </LinearLayout>
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <!-- Phone Row -->
-        <LinearLayout
-            android:id="@+id/phoneRow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/emailRow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp">
+                <!-- Email Row -->
+                <LinearLayout
+                    android:id="@+id/emailRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
 
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/email"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="johndoe@example.com" />
+                </LinearLayout>
+
+                <!-- Phone Row -->
+                <LinearLayout
+                    android:id="@+id/phoneRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/phone"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="06-99999999" />
+                </LinearLayout>
+
+                <!-- Location Row -->
+                <LinearLayout
+                    android:id="@+id/locationRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/location"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Casablanca, Maroc" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Arrow on the right -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/phone"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="06-99999999" />
-        </LinearLayout>
-
-        <!-- Location Row -->
-        <LinearLayout
-            android:id="@+id/locationRow"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/phoneRow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/location"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Casablanca, Maroc" />
-
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/chevron_right"
+                android:contentDescription="arrow"
+                android:layout_marginStart="12dp" />
         </LinearLayout>
 
         <!-- Divider -->
@@ -134,7 +152,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="#CCCCCC"
-            app:layout_constraintTop_toBottomOf="@id/locationRow"
+            app:layout_constraintTop_toBottomOf="@id/personal_information"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp" />

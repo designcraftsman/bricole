@@ -42,40 +42,45 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="12dp"
             android:orientation="vertical">
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Lundi"/>
-            <Spinner android:id="@+id/spinnerMonday" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <Spinner android:id="@+id/spinnerMonday" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" />
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mardi"/>
-            <Spinner android:id="@+id/spinnerTuesday" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <Spinner android:id="@+id/spinnerTuesday" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" />
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mercredi"/>
-            <Spinner android:id="@+id/spinnerWednesday" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <Spinner android:id="@+id/spinnerWednesday" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" />
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Jeudi"/>
-            <Spinner android:id="@+id/spinnerThursday" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <Spinner android:id="@+id/spinnerThursday" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" />
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Vendredi"/>
-            <Spinner android:id="@+id/spinnerFriday" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <Spinner android:id="@+id/spinnerFriday" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp"/>
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Samedi"/>
-            <Spinner android:id="@+id/spinnerSaturday" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <Spinner android:id="@+id/spinnerSaturday" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" />
 
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dimanche"/>
-            <Spinner android:id="@+id/spinnerSunday" android:layout_width="match_parent" android:layout_height="wrap_content" />
+            <Spinner android:id="@+id/spinnerSunday" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp"/>
         </LinearLayout>
 
         <!-- Save button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            >
         <Button
             android:id="@+id/buttonSaveAvailability"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="Enregistrer"
             android:textStyle="bold"
             android:backgroundTint="@color/orange"
             android:textColor="#FFFFFF" />
-
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

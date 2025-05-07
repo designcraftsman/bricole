@@ -1,10 +1,17 @@
 package com.emsi.bricole_app.controllers;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,12 +21,14 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.emsi.bricole_app.R;
 import com.emsi.bricole_app.models.Chat;
+import com.emsi.bricole_app.models.Job;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Activity_Messages_Listing extends Drawer {
@@ -28,8 +37,9 @@ public class Activity_Messages_Listing extends Drawer {
     Activity_MessagesAdapter adapter;
     ArrayList<Chat> chatMessages;
 
+    private TextView txtEmptyChat;
     private ImageButton mBackBtn;
-
+    private EditText searchInput;
     private SharedPreferences prefs;
 
     private String USER_ACCESS_TOKEN;
@@ -44,8 +54,25 @@ public class Activity_Messages_Listing extends Drawer {
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
         user_id = prefs.getInt("user_id", -1);
 
+        txtEmptyChat = findViewById(R.id.txtEmptyChat);
         mBackBtn = findViewById(R.id.backButton);
+        searchInput = findViewById(R.id.searchInput);
 
+        txtEmptyChat.setVisibility(INVISIBLE);
+
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterMessagesByName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
         mBackBtn.setOnClickListener(view->{
             finish();
         });
@@ -64,6 +91,7 @@ public class Activity_Messages_Listing extends Drawer {
             startActivity(intent);
         });
 
+
         chatRecyclerView.setAdapter(adapter);
 
         fetchConversations(); // 🔥 THIS IS WHAT WAS MISSING
@@ -71,6 +99,15 @@ public class Activity_Messages_Listing extends Drawer {
 
     }
 
+    private void filterMessagesByName(String query) {
+        List<Chat> filteredList = new ArrayList<>();
+        for (Chat chat : chatMessages) {
+            if (chat.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(chat);
+            }
+        }
+        adapter.updateList(filteredList);
+    }
     private void fetchConversations() {
         String jwt = "Bearer " + USER_ACCESS_TOKEN; // From SharedPreferences
 

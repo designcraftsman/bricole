@@ -32,43 +32,13 @@
                 android:layout_marginStart="8dp" />
         </LinearLayout>
 
-        <!-- Filter Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Active"
-                android:textColor="@color/dark_gray"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Brouillon"
-                android:textColor="@color/dark_gray"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_marginStart="8dp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Complété"
-                android:textColor="@color/dark_gray"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
 
         <!-- Table -->
         <TableLayout
             android:id="@+id/table_layout_offers"
             android:layout_width="match_parent"
+            android:layout_marginTop="24dp"
             android:layout_height="wrap_content"
             android:stretchColumns="*"
             android:background="#eeeeee">
@@ -80,70 +50,23 @@
                 <TextView android:text="Actions" android:textColor="@color/white" android:textStyle="bold" />
             </TableRow>
 
+
+
             <!-- Table Row Example -->
             <TableRow android:padding="8dp"
                 android:id="@+id/offers_row">
-
-                <!-- Offer Title -->
                 <TextView
-                    android:id="@+id/offers_title"
-                    android:text="Électricien - Installation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp" />
-
-                <!-- Candidates Stats -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/circle_border"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="3dp">
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/offers_candidates_accepted_count" android:text="18" android:textSize="10sp" android:textStyle="bold" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"  android:text="Accepté" android:textSize="10sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/circle_border"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="3dp"
-                        >
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/offers_candidates_pending_count"  android:text="10" android:textSize="10sp" android:textStyle="bold" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="En attente" android:textSize="10sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/circle_border"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="3dp"
-                       >
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/offers_candidates_rejected_count" android:text="10" android:textSize="10sp" android:textStyle="bold" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rejeté" android:textSize="10sp" />
-                    </LinearLayout>
-                </LinearLayout>
-
-
-
-                <!-- Actions -->
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/more"
-                    android:layout_gravity="center" />
+                    android:id="@+id/txtEmptyOffers"
+                    android:layout_height="500dp"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:layout_weight="2"
+                    android:textSize="16sp"
+                    android:text="Vous n'avez publié aucune offre"
+                    android:gravity="center" />
             </TableRow>
         </TableLayout>
 
     </LinearLayout>
+
 </ScrollView>

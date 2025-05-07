@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Informations du compte"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Nous utilisons ces informations pour vous proposer des offres adaptées."
+            android:textSize="14sp"
+            android:textColor="#888888" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Day selectors -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/First_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="First Name"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/component_input_dark"
+                android:padding="12dp"
+                />
+
+            <EditText
+                android:id="@+id/Last_Name"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Last Name"
+                android:textColorHint="@android:color/darker_gray"
+                android:textColor="@color/black"
+                android:background="@drawable/component_input_dark"
+                android:inputType="text"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                >
+
+                <EditText
+                    android:id="@+id/Phone_Prefix"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:hint="+212"
+                    android:padding="12dp"
+                    android:inputType="phone"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@color/black"
+                    android:background="@drawable/component_input_dark" />
+
+
+                <!-- Phone Number -->
+                <EditText
+                    android:id="@+id/Phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Number"
+                    android:padding="12dp"
+                    android:inputType="phone"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:textColor="@color/black"
+                    android:background="@drawable/component_input_dark"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_marginTop="12dp"
+                app:boxCornerRadiusBottomStart="25dp"
+                app:boxCornerRadiusBottomEnd="25dp"
+                app:boxCornerRadiusTopEnd="25dp"
+                app:boxCornerRadiusTopStart="25dp"
+                android:layout_height="wrap_content"
+                app:boxStrokeWidth="0dp"
+                android:id="@+id/Gender"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@android:color/darker_gray"
+                >
+                <AutoCompleteTextView
+                    android:id="@+id/Gender_Options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    app:boxStrokeColor="@android:color/darker_gray"
+                    app:boxStrokeWidth="3dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <EditText
+                android:id="@+id/Adress"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Adress"
+                android:textColorHint="@android:color/darker_gray"
+                android:textColor="@color/black"
+                android:background="@drawable/component_input_dark"
+                android:inputType="text"/>
+
+        </LinearLayout>
+
+        <!-- Save button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            >
+            <Button
+                android:id="@+id/buttonUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enregistrer"
+                android:textStyle="bold"
+                android:backgroundTint="@color/orange"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

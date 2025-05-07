@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.emsi.bricole_app.R;
 import com.emsi.bricole_app.models.Application;
+import com.emsi.bricole_app.models.Job;
 
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class Activity_ApplicationAdapter extends RecyclerView.Adapter<Activity_A
         return new ViewHolder(view);
     }
 
+    public void updateList(List<Application> newList) {
+        this.applicationList = newList;
+        notifyDataSetChanged();
+    }
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Application application = applicationList.get(position);
