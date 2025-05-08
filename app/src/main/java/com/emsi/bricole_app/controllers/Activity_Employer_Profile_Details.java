@@ -46,7 +46,7 @@ public class Activity_Employer_Profile_Details extends Drawer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employer_profile_details); // Keep layout if same, or rename if needed
+        setupDrawer(R.layout.activity_employer_profile_details); // Keep layout if same, or rename if needed
 
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);

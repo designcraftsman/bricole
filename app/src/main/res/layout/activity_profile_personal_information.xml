@@ -44,32 +44,58 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prénom"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="16sp"
+                />
             <EditText
                 android:id="@+id/First_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="First Name"
+                android:hint="Prénom"
+                android:textSize="14sp"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/darker_gray"
                 android:background="@drawable/component_input_dark"
                 android:padding="12dp"
+                android:layout_marginBottom="16dp"
                 />
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nom"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="16sp"
+                />
             <EditText
                 android:id="@+id/Last_Name"
                 android:padding="12dp"
-                android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Last Name"
+                android:textSize="14sp"
+                android:hint="Nom"
                 android:textColorHint="@android:color/darker_gray"
                 android:textColor="@color/black"
                 android:background="@drawable/component_input_dark"
+                android:layout_marginBottom="16dp"
                 android:inputType="text"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telephone"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="16sp"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
                 >
 
                 <EditText
@@ -78,6 +104,7 @@
                     android:layout_height="wrap_content"
                     android:hint="+212"
                     android:padding="12dp"
+                    android:textSize="14sp"
                     android:inputType="phone"
                     android:textColorHint="@android:color/darker_gray"
                     android:textColor="@color/black"
@@ -89,43 +116,67 @@
                     android:id="@+id/Phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone Number"
+                    android:hint="Telephone"
                     android:padding="12dp"
                     android:inputType="phone"
+                    android:textSize="14sp"
                     android:textColorHint="@android:color/darker_gray"
                     android:textColor="@color/black"
                     android:background="@drawable/component_input_dark"
                     android:layout_marginStart="8dp" />
             </LinearLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_marginTop="12dp"
-                app:boxCornerRadiusBottomStart="25dp"
-                app:boxCornerRadiusBottomEnd="25dp"
-                app:boxCornerRadiusTopEnd="25dp"
-                app:boxCornerRadiusTopStart="25dp"
                 android:layout_height="wrap_content"
-                app:boxStrokeWidth="0dp"
+                android:text="Genre"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="16sp"
+                />
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/Gender"
-                app:boxBackgroundColor="@color/white"
-                app:boxStrokeColor="@android:color/darker_gray"
-                >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sélectionner"
+                app:boxBackgroundMode="outline"
+                android:layout_marginBottom="16dp"
+                app:boxStrokeColor="#DDDDDD"
+                app:boxStrokeWidth="1dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidthFocused="2dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp">
+
                 <AutoCompleteTextView
                     android:id="@+id/Gender_Options"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    app:boxStrokeColor="@android:color/darker_gray"
-                    app:boxStrokeWidth="3dp"
+                    android:textColor="@android:color/black"
+                    android:drawableEnd="@drawable/arrow_down"
+                    android:drawableRight="@drawable/arrow_down"
+                    android:padding="12dp"
+                    android:textSize="16sp"
+                    android:dropDownVerticalOffset="8dp"
+                    android:dropDownHeight="wrap_content"
+                    android:paddingEnd="12dp"
                     />
-            </com.google.android.material.textfield.TextInputLayout>
 
+            </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Adresse"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
+                android:textSize="16sp"
+                />
             <EditText
                 android:id="@+id/Adress"
                 android:padding="12dp"
-                android:layout_marginTop="16dp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Adress"

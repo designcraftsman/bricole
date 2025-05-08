@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,7 +36,8 @@ public class Activity_Candidates extends Drawer {
 
     private SharedPreferences prefs;
     private String USER_ACCESS_TOKEN;
-    private TextView txtEmptyCandidates;
+    private TableLayout mTableLayoutCandidates;
+    private LinearLayout mNoCandidatesContainer;
     private int job_id;
 
     @Override
@@ -42,7 +45,8 @@ public class Activity_Candidates extends Drawer {
         super.onCreate(savedInstanceState);
         setupDrawer(R.layout.activity_candidates);
 
-        txtEmptyCandidates.findViewById(R.id.txtEmptyCandidates);
+        mTableLayoutCandidates = findViewById(R.id.table_layout_candidates);
+        mNoCandidatesContainer = findViewById(R.id.no_candidates_container);
         // Get the access token from shared preferences
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
@@ -72,9 +76,9 @@ public class Activity_Candidates extends Drawer {
                         try {
                             JSONArray candidatesArray = new JSONArray(jsonData);
                             if(candidatesArray.length() == 0){
-                                txtEmptyCandidates.setVisibility(VISIBLE);
+                                mTableLayoutCandidates.setVisibility(View.GONE);
                             }else{
-                                txtEmptyCandidates.setVisibility(INVISIBLE);
+                                mNoCandidatesContainer.setVisibility(View.GONE);
                                 displayCandidates(candidatesArray);
                             }
                         } catch (JSONException e) {

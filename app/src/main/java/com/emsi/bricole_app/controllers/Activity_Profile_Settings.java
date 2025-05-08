@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,14 +24,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Activity_Profile_Settings extends Drawer {
 
     private ImageButton mBackBtn;
     private LinearLayout mPersonalInformation, mQualificationsSection, mPreferenceSection, mAvailabilitySection;
-
+    private View mDivider1,mDivider2,mDivider3;
     private TextView mUserName, mEmail, mPhone, mLocation;
     private ImageView mProfileImage;
     private SharedPreferences prefs;
@@ -89,11 +93,17 @@ public class Activity_Profile_Settings extends Drawer {
         mPreferenceSection = findViewById(R.id.preferencesSection);
         mAvailabilitySection = findViewById(R.id.availabilitySection);
 
+        mDivider1 = findViewById(R.id.divider1);
+        mDivider2 = findViewById(R.id.divider2);
+        mDivider3 = findViewById(R.id.divider3);
         // ✅ Hide sections if user is an employer
         if ("EMPLOYER".equalsIgnoreCase(USER_ROLE)) {
             mQualificationsSection.setVisibility(LinearLayout.GONE);
             mPreferenceSection.setVisibility(LinearLayout.GONE);
             mAvailabilitySection.setVisibility(LinearLayout.GONE);
+            mDivider1.setVisibility(View.GONE);
+            mDivider2.setVisibility(View.GONE);
+            mDivider3.setVisibility(View.GONE);
         }
 
         // Set listeners
@@ -158,31 +168,30 @@ public class Activity_Profile_Settings extends Drawer {
                 }
 
                 @Override
-                public Map<String, DataPart> getByteData() {
-                    Map<String, DataPart> params = new HashMap<>();
+                public List<Map.Entry<String, DataPart>> getByteData() {
+                    List<Map.Entry<String, DataPart>> data = new ArrayList<>();
 
                     String mimeType = getContentResolver().getType(imageUri);
                     String extension = android.webkit.MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
 
                     if (mimeType == null || extension == null) {
                         Toast.makeText(Activity_Profile_Settings.this, "Unsupported image type", Toast.LENGTH_SHORT).show();
-                        return params;
+                        return data;
                     }
 
                     extension = extension.toLowerCase();
                     mimeType = mimeType.toLowerCase();
-                    System.out.println("the image mime type is: " + mimeType);
-                    // Allow only png, webp, jpg, jpeg
                     if (!extension.matches("png|webp|jpg|jpeg")) {
                         Toast.makeText(Activity_Profile_Settings.this, "Only PNG, WEBP, JPG, or JPEG are supported", Toast.LENGTH_SHORT).show();
-                        return params;
+                        return data;
                     }
 
                     String fileName = "profile." + extension;
-                    params.put("file", new DataPart(fileName, inputData, mimeType));
+                    data.add(new AbstractMap.SimpleEntry<>("file", new DataPart(fileName, inputData, mimeType)));
 
-                    return params;
+                    return data;
                 }
+
 
             };
 

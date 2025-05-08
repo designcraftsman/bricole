@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -28,7 +29,7 @@ import java.util.Calendar;
 
 import okhttp3.*;
 
-public class Activity_Profile_Personal_Information extends AppCompatActivity {
+public class Activity_Profile_Personal_Information extends Drawer {
 
     private EditText firstNameField, lastNameField, phonePrefixField,phoneField, addressField;
     private Button mBtnUpdate;
@@ -43,7 +44,7 @@ public class Activity_Profile_Personal_Information extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_personal_information);
+        setupDrawer(R.layout.activity_profile_personal_information);
         firstNameField = findViewById(R.id.First_Name);
         lastNameField = findViewById(R.id.Last_Name);
         phonePrefixField = findViewById(R.id.Phone_Prefix);
@@ -56,19 +57,16 @@ public class Activity_Profile_Personal_Information extends AppCompatActivity {
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
 
-        mGender.setHint("genre");
 
-        mGender.setOnClickListener(view->{
-            Intent intent = new Intent(this , Activity_Signup_Form.class);
-            startActivity(intent);
-        });
-
-
-        String[] cities = {"MALE","FEMALE","autre"};
-
-        ArrayAdapter<String> adapter =  new ArrayAdapter<>(this,android.R.layout.simple_dropdown_item_1line,cities);
-
+        // Category dropdown setup
+        String[] gender_options = {"MALE", "FEMALE", "OTHER"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, gender_options);
         mGenderOptions.setAdapter(adapter);
+        mGenderOptions.setOnClickListener(v -> mGenderOptions.showDropDown());
+        mGenderOptions.setFocusable(false);
+        mGenderOptions.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        mGenderOptions.setInputType(0);
+
 
         fetchUserProfile(USER_ACCESS_TOKEN);
 

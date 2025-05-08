@@ -148,7 +148,7 @@
 
         <!-- Divider -->
         <View
-            android:id="@+id/divider"
+            android:id="@+id/divider1"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="#CCCCCC"
@@ -169,7 +169,7 @@
             android:padding="16dp"
             android:clickable="true"
             android:focusable="true"
-            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintTop_toBottomOf="@id/divider1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp">
@@ -217,6 +217,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/divider2"
             android:layout_width="350dp"
             android:layout_height="1dp"
             android:background="#CCCCCC"
@@ -282,6 +283,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/divider3"
             android:layout_width="350dp"
             android:layout_height="2dp"
             android:background="#CCCCCC"

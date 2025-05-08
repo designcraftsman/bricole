@@ -1,10 +1,18 @@
 package com.emsi.bricole_app.controllers;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.text.InputType;
 import android.util.Base64;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -16,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.emsi.bricole_app.R;
 import com.android.volley.Request;
@@ -27,6 +36,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,14 +101,24 @@ public class Activity_Employer_NewJobOffer extends Drawer {
     }
 
     private void addMissionField() {
-        EditText missionInput = new EditText(this);
-        missionInput.setHint("Mission");
-        missionInput.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-        missionInput.setBackgroundResource(R.drawable.input_field_background);
-        missionsContainer.addView(missionInput);
+        EditText newMission = new EditText(this);
+        newMission.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        newMission.setHint("Décrire la mission");
+        newMission.setBackground(getDrawable(R.drawable.component_input));
+        newMission.setPadding(20, 20, 20, 20);
+        newMission.setTextColor(Color.BLACK);
+        newMission.setTextSize(14f);
+        newMission.setGravity(Gravity.START | Gravity.TOP);
+
+        missionsContainer.addView(newMission);
+        animateViewIn(newMission);  // 🟠 Animate here
+    }
+
+    private void animateViewIn(View view) {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        view.startAnimation(animation);
     }
 
     @Override
@@ -106,14 +126,50 @@ public class Activity_Employer_NewJobOffer extends Drawer {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             if (data.getClipData() != null) {
+                // Handle multiple images (append to existing)
                 for (int i = 0; i < data.getClipData().getItemCount(); i++) {
-                    selectedImages.add(data.getClipData().getItemAt(i).getUri());
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    if (!selectedImages.contains(imageUri)) {
+                        selectedImages.add(imageUri);
+                        addFileNameToMediaContainer(imageUri);
+                    }
                 }
             } else if (data.getData() != null) {
-                selectedImages.add(data.getData());
+                // Handle single image (append to existing)
+                Uri imageUri = data.getData();
+                if (!selectedImages.contains(imageUri)) {
+                    selectedImages.add(imageUri);
+                    addFileNameToMediaContainer(imageUri);
+                }
             }
         }
     }
+
+
+    private void addFileNameToMediaContainer(Uri uri) {
+        String fileName = "Unknown";
+
+        // Try to extract the actual file name using content resolver
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            if (nameIndex != -1) {
+                fileName = cursor.getString(nameIndex);
+            }
+            cursor.close();
+        }
+
+        TextView fileNameView = new TextView(this);
+        fileNameView.setText(fileName);
+        fileNameView.setTextColor(getResources().getColor(android.R.color.black));
+        fileNameView.setTextSize(14);
+        fileNameView.setPadding(0, 8, 0, 8);
+
+        mediaContainer.addView(fileNameView);
+    }
+
+
+
 
     private void submitJobOffer(String token) {
         // Build the job JSON string
@@ -161,30 +217,33 @@ public class Activity_Employer_NewJobOffer extends Drawer {
                 error -> Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
         ) {
             @Override
-            public Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = new HashMap<>();
-                int index = 0;
+            public List<Map.Entry<String, VolleyMultipartRequest.DataPart>> getByteData() throws AuthFailureError {
+                List<Map.Entry<String, VolleyMultipartRequest.DataPart>> data = new ArrayList<>();
 
-                // Add images
+                int index = 0;
                 for (Uri uri : selectedImages) {
                     try {
-                        InputStream inputStream = getContentResolver().openInputStream(uri);
-                        byte[] fileData = new byte[inputStream.available()];
-                        inputStream.read(fileData);
-                        inputStream.close();
+                        InputStream iStream = getContentResolver().openInputStream(uri);
+                        byte[] imgData = new byte[iStream.available()];
+                        iStream.read(imgData);
+                        iStream.close();
 
-                        params.put("media", new DataPart("image" + index + ".jpg", fileData, "image/jpeg"));
+                        // Always use key "media"
+                        data.add(new AbstractMap.SimpleEntry<>("media",
+                                new VolleyMultipartRequest.DataPart("image" + index + ".jpg", imgData, "image/jpeg")));
                         index++;
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
 
-                // Add the job JSON
-                params.put("job", new DataPart("job.json", jobJson.toString().getBytes(), "application/json"));
+                // Add JSON part (optional)
+                data.add(new AbstractMap.SimpleEntry<>("job",
+                        new VolleyMultipartRequest.DataPart("job.json", jobJson.toString().getBytes(), "application/json")));
 
-                return params;
+                return data;
             }
+
 
             @Override
             public Map<String, String> getHeaders() {

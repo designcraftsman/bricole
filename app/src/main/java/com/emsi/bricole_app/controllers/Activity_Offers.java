@@ -8,7 +8,10 @@ import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -32,22 +35,28 @@ public class Activity_Offers extends Drawer {
 
     private final String TAG = "Activity_Offers";
     private final String API_URL = "http://10.0.2.2:8080/api/employer/job/offers";
-    private TextView txtEmptyOffers;
+    private TableLayout mTableLayoutOffers;
     private SharedPreferences prefs;
     private String USER_ACCESS_TOKEN;
     private JSONArray offersArray;
+    private LinearLayout noOffersContainer;
+    private Button mBtnNewJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupDrawer(R.layout.activity_offers);
 
-        txtEmptyOffers = findViewById(R.id.txtEmptyOffers);
-
+        noOffersContainer = findViewById(R.id.no_offers_container);
+        mTableLayoutOffers = findViewById(R.id.table_layout_offers);
         // Get the access token from shared preferences
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
-
+        mBtnNewJob = findViewById(R.id.btn_post_job);
+        mBtnNewJob.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Activity_Employer_NewJobOffer.class);
+            startActivity(intent);
+        });
         fetchOffers();
     }
 
@@ -89,10 +98,10 @@ public class Activity_Offers extends Drawer {
                                 runOnUiThread(() -> {
                                     try {
                                         offersArray = new JSONArray(offersJson);
-                                        if(offersArray.length()==0){
-                                            txtEmptyOffers.setVisibility(VISIBLE);
-                                        }else {
-                                            txtEmptyOffers.setVisibility(INVISIBLE);
+                                        if (offersArray.length() == 0) {
+                                            mTableLayoutOffers.setVisibility(View.GONE);
+                                        } else {
+                                            noOffersContainer.setVisibility(View.GONE);
                                             JSONArray applicantsArray = new JSONArray(applicantsJson);
                                             // Enrich each offer with accepted/pending/rejected counts
                                             for (int i = 0; i < offersArray.length(); i++) {

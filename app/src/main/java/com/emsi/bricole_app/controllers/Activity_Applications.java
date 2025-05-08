@@ -107,17 +107,22 @@ public class Activity_Applications extends Drawer {
 
     private void parseApplications(JSONArray response) {
         try {
+            applicationList.clear(); // Clear previous data
             for (int i = 0; i < response.length(); i++) {
                 JSONObject obj = response.getJSONObject(i);
                 JSONObject jobObj = obj.getJSONObject("job");
+
+                String state = obj.getString("state");
+                if ("CANCELED".equalsIgnoreCase(state)) {
+                    continue; // Skip canceled applications
+                }
 
                 int id = jobObj.getInt("id");
                 String title = jobObj.getString("title");
                 String location = jobObj.getString("location");
                 String createdAt = jobObj.getString("createdAt");
-                String state = obj.getString("state");
 
-                applicationList.add(new Application(id,title, location, createdAt, state));
+                applicationList.add(new Application(id, title, location, createdAt, state));
             }
             adapter.notifyDataSetChanged();
         } catch (JSONException e) {
@@ -125,6 +130,7 @@ public class Activity_Applications extends Drawer {
             Toast.makeText(this, "Error parsing applications", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void cancelApplication(int applicationId, int position) {
         String cancelUrl = "http://10.0.2.2:8080/api/employee/application/" + applicationId + "/cancel";

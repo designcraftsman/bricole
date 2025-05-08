@@ -87,9 +87,7 @@ public class Drawer extends AppCompatActivity {
     }
 
     private void handleEmployerNavigation(int id) {
-        if (id == R.id.nav_dashboard) {
-            startActivity(new Intent(this, Activity_Employer_Dashboard.class));
-        } else if (id == R.id.nav_candidates) {
+        if (id == R.id.nav_candidates) {
             startActivity(new Intent(this, Activity_Candidates.class));
         } else if (id == R.id.nav_offers) {
             startActivity(new Intent(this, Activity_Offers.class));
@@ -114,9 +112,7 @@ public class Drawer extends AppCompatActivity {
     }
 
     private void handleEmployeeNavigation(int id) {
-        if (id == R.id.nav_dashboard) {
-            startActivity(new Intent(this, Activity_Job_Listing.class));
-        } else if (id == R.id.nav_applications) {
+       if (id == R.id.nav_applications) {
             startActivity(new Intent(this, Activity_Applications.class));
         } else if (id == R.id.nav_offers) {
             startActivity(new Intent(this, Activity_Job_Listing.class));

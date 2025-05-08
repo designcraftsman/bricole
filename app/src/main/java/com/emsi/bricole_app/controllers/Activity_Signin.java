@@ -119,19 +119,16 @@ public class Activity_Signin extends AppCompatActivity {
                                 .putString("role", role)
                                 .apply();
 
-                        System.out.println("Login successful. Token: " + accessToken);
-
                         runOnUiThread(() -> {
                             Intent intent;
 
                             if (role.equalsIgnoreCase("employer")) {
-                                intent = new Intent(Activity_Signin.this, Activity_Employer_Dashboard.class);
+                                intent = new Intent(Activity_Signin.this, Activity_Offers.class);
                             } else if (role.equalsIgnoreCase("employee")) {
                                 intent = new Intent(Activity_Signin.this, Activity_Job_Listing.class);
                             } else{
                                 return;
                             }
-
                             startActivity(intent);
                             finish();
                         });

@@ -2,19 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/nav_dashboard"
-            android:title="Tableau de bord"
-            android:icon="@drawable/home_foreground"
+            android:id="@+id/nav_offers"
+            android:title="Mes Offres"
+            android:icon="@drawable/offers"
             />
         <item
             android:id="@+id/nav_candidates"
             android:title="Candidats"
             android:icon="@drawable/candidates"
-            />
-        <item
-            android:id="@+id/nav_offers"
-            android:title="Offres"
-            android:icon="@drawable/offers"
             />
         <item
             android:id="@+id/nav_messages"

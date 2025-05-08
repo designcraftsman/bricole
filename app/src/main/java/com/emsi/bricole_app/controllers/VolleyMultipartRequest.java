@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class VolleyMultipartRequest extends Request<NetworkResponse> {
@@ -43,12 +44,13 @@ public abstract class VolleyMultipartRequest extends Request<NetworkResponse> {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             // add file
-            Map<String, DataPart> data = getByteData();
+            List<Map.Entry<String, DataPart>> data = getByteData();
             if (data != null) {
-                for (Map.Entry<String, DataPart> entry : data.entrySet()) {
+                for (Map.Entry<String, DataPart> entry : data) {
                     buildPart(bos, entry.getValue(), entry.getKey());
                 }
             }
+
 
             // close boundary
             bos.write(("--" + boundary + "--").getBytes());
@@ -68,18 +70,22 @@ public abstract class VolleyMultipartRequest extends Request<NetworkResponse> {
         mListener.onResponse(response);
     }
 
-    public abstract Map<String, DataPart> getByteData() throws AuthFailureError;
+    public abstract List<Map.Entry<String, DataPart>> getByteData() throws AuthFailureError;
+
 
     private final String boundary = "----WebKitFormBoundary" + System.currentTimeMillis();
 
     private void buildPart(ByteArrayOutputStream bos, DataPart dataFile, String fieldName) throws IOException {
+        String actualFieldName = fieldName.startsWith("media") ? "media" : fieldName;
+
         bos.write(("--" + boundary + "\r\n").getBytes());
         bos.write(("Content-Disposition: form-data; name=\"" +
-                fieldName + "\"; filename=\"" + dataFile.getFileName() + "\"\r\n").getBytes());
+                actualFieldName + "\"; filename=\"" + dataFile.getFileName() + "\"\r\n").getBytes());
         bos.write(("Content-Type: " + dataFile.getType() + "\r\n\r\n").getBytes());
         bos.write(dataFile.getContent());
         bos.write("\r\n".getBytes());
     }
+
 
     public static class DataPart {
         private final String fileName;
