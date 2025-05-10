@@ -113,14 +113,16 @@ public class Activity_Application_View extends Drawer{
                             String title = job.getString("title");
                             String location = job.getString("location");
                             String description = job.getString("description");
-                            String status = job.getString("status");
 
                             JSONArray missions = job.getJSONArray("missions");
 
                             txtTitle.setText(title);
                             txtLocation.setText(location);
                             txtDescription.setText(description);
-                            txtStatus.setText(status);
+
+                            JSONObject applicants = job.getJSONObject("applicants");
+                            String applicationStatus = applicants.optString(String.valueOf(user_id), "Unknown");
+                            txtStatus.setText(applicationStatus);
 
 
                             // Display missions

@@ -6,8 +6,12 @@ import static android.view.View.VISIBLE;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -39,6 +43,10 @@ public class Activity_Candidates extends Drawer {
     private TableLayout mTableLayoutCandidates;
     private LinearLayout mNoCandidatesContainer;
     private int job_id;
+    private JSONArray originalCandidatesArray;
+    private Button acceptedFilterBtn, pendingFilterBtn, rejectedFilterBtn;
+    private String selectedStatus = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +59,56 @@ public class Activity_Candidates extends Drawer {
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
 
+        EditText searchEditText = findViewById(R.id.search_input); // Give your EditText an ID like "search_input"
+
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String query = s.toString().trim().toLowerCase();
+                filterCandidatesByName(query);
+            }
+        });
+
+        acceptedFilterBtn = findViewById(R.id.accepted_filter);
+        pendingFilterBtn = findViewById(R.id.pending_filter);
+        rejectedFilterBtn = findViewById(R.id.rejected_filter);
+
+        View.OnClickListener filterClickListener = v -> {
+            if (v == acceptedFilterBtn) {
+                selectedStatus = "ACCEPTED";
+                highlightSelectedButton(acceptedFilterBtn);
+            } else if (v == pendingFilterBtn) {
+                selectedStatus = "PENDING";
+                highlightSelectedButton(pendingFilterBtn);
+            } else if (v == rejectedFilterBtn) {
+                selectedStatus = "REJECTED";
+                highlightSelectedButton(rejectedFilterBtn);
+            }
+            filterCandidatesByName(((EditText) findViewById(R.id.search_input)).getText().toString().trim().toLowerCase());
+        };
+
+        acceptedFilterBtn.setOnClickListener(filterClickListener);
+        pendingFilterBtn.setOnClickListener(filterClickListener);
+        rejectedFilterBtn.setOnClickListener(filterClickListener);
+
+
         fetchCandidates();
+    }
+
+    private void highlightSelectedButton(Button selectedButton) {
+        // Reset all
+        acceptedFilterBtn.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        pendingFilterBtn.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        rejectedFilterBtn.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+        // Highlight selected
+        selectedButton.setBackgroundColor(getResources().getColor(R.color.orange));
     }
 
     private void fetchCandidates() {
@@ -79,7 +136,9 @@ public class Activity_Candidates extends Drawer {
                                 mTableLayoutCandidates.setVisibility(View.GONE);
                             }else{
                                 mNoCandidatesContainer.setVisibility(View.GONE);
-                                displayCandidates(candidatesArray);
+                                originalCandidatesArray = candidatesArray;
+                                displayCandidates(originalCandidatesArray);
+
                             }
                         } catch (JSONException e) {
                             Log.e(TAG, "JSON parsing error: " + e.getMessage());
@@ -91,6 +150,52 @@ public class Activity_Candidates extends Drawer {
             }
         });
     }
+
+    private void filterCandidatesByName(String query) {
+        if (originalCandidatesArray == null) return;
+
+        JSONArray filteredArray = new JSONArray();
+
+        try {
+            for (int i = 0; i < originalCandidatesArray.length(); i++) {
+                JSONObject offer = originalCandidatesArray.getJSONObject(i);
+                JSONObject job = offer.getJSONObject("job");
+                JSONArray applicants = offer.optJSONArray("applicants");
+
+                if (applicants != null) {
+                    JSONArray filteredApplicants = new JSONArray();
+
+                    for (int j = 0; j < applicants.length(); j++) {
+                        JSONObject applicantObject = applicants.getJSONObject(j);
+                        JSONObject employee = applicantObject.getJSONObject("employeeDTO");
+                        String fullName = employee.getString("firstname") + " " + employee.getString("lastname");
+
+                        String applicationStatus = applicantObject.getString("applicationState");
+
+                        boolean nameMatches = fullName.toLowerCase().contains(query);
+                        boolean statusMatches = (selectedStatus == null || applicationStatus.equalsIgnoreCase(selectedStatus));
+
+                        if (nameMatches && statusMatches) {
+                            filteredApplicants.put(applicantObject);
+                        }
+
+                    }
+
+                    if (filteredApplicants.length() > 0) {
+                        JSONObject newOffer = new JSONObject();
+                        newOffer.put("job", job);
+                        newOffer.put("applicants", filteredApplicants);
+                        filteredArray.put(newOffer);
+                    }
+                }
+            }
+
+            displayCandidates(filteredArray);
+        } catch (JSONException e) {
+            Log.e(TAG, "Filtering error: " + e.getMessage());
+        }
+    }
+
 
     private void displayCandidates(JSONArray offersArray) throws JSONException {
         TableLayout tableLayout = findViewById(R.id.table_layout_candidates);
@@ -137,13 +242,12 @@ public class Activity_Candidates extends Drawer {
 
                     moreBtn.setOnClickListener(v -> {
                         PopupMenu popupMenu = new PopupMenu(Activity_Candidates.this, v);
-                        popupMenu.getMenuInflater().inflate(R.menu.menu_offer_options, popupMenu.getMenu());
+                        popupMenu.getMenuInflater().inflate(R.menu.menu_candidate_options, popupMenu.getMenu());
 
                         popupMenu.setOnMenuItemClickListener(item -> {
                             int itemId = item.getItemId();
 
                             if (itemId == R.id.menu_view) {
-                                System.out.println("the id being sent is :" + finalJobId);
                                 Intent viewIntent = new Intent(Activity_Candidates.this, Activity_Application_View.class); // example activity
                                 viewIntent.putExtra("job_id", finalJobId);
                                 viewIntent.putExtra("employee_id", finalEmployeeId);
@@ -151,15 +255,11 @@ public class Activity_Candidates extends Drawer {
                                 startActivity(viewIntent);
                                 return true;
                             } else if (itemId == R.id.menu_edit) {
-                                Intent editIntent = new Intent(Activity_Candidates.this, Activity_EditJobOffer.class);
+                                Intent editIntent = new Intent(Activity_Candidates.this, Activity_Job_Details.class);
                                 editIntent.putExtra("job_id", finalJobId);
                                 startActivity(editIntent);
                                 return true;
-                            } else if (itemId == R.id.menu_delete) {
-                                deleteApplication(finalEmployeeId); // Assuming delete by employee/applicant
-                                return true;
                             }
-
                             return false;
                         });
 
@@ -171,11 +271,6 @@ public class Activity_Candidates extends Drawer {
                 }
             }
         }
-    }
-    private void deleteApplication(int offerId) {
-        // Call your API to delete the offer and refresh the list if needed
-        Log.d(TAG, "Deleted application ID: " + offerId);
-        // You can add a confirmation dialog and API call here
     }
 
 }

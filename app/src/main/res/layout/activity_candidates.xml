@@ -51,19 +51,14 @@
             android:gravity="center_vertical">
 
             <EditText
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/search_input"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Rechercher"
                 android:drawableLeft="@drawable/search"
                 android:background="@drawable/component_input"
                 android:paddingStart="12dp" />
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/filter"
-                android:layout_marginStart="8dp" />
         </LinearLayout>
 
         <!-- Filter Buttons -->
@@ -76,6 +71,7 @@
             android:paddingBottom="8dp">
 
             <Button
+                android:id="@+id/accepted_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Accepté"
@@ -83,6 +79,7 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
             <Button
+                android:id="@+id/pending_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="En Attente"
@@ -91,6 +88,7 @@
                 android:layout_marginStart="8dp" />
 
             <Button
+                android:id="@+id/rejected_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rejeté"

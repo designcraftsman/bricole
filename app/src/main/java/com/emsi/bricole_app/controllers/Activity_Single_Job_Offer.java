@@ -1,7 +1,10 @@
 package com.emsi.bricole_app.controllers;
 
+import static com.android.volley.VolleyLog.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.emsi.bricole_app.R;
 
@@ -19,6 +23,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -28,17 +36,15 @@ import okhttp3.Response;
 
 public class Activity_Single_Job_Offer extends Drawer {
     private ImageView backButton;
-    private TextView txtRetour, txtPostedBy, txtTitle, txtLocation;
-    private TextView txtMissionLabel, txtMission1, txtMission2, txtMission3;
-    private TextView txtDescriptionLabel, txtDescription;
-    private TextView txtSkillsLabel, txtSkill1, txtSkill2, txtSkill3;
+    private TextView  txtPostedBy, txtTitle, txtLocation;
+    private TextView  txtMission1, txtMission2, txtMission3;
+    private TextView  txtDescription;
     private TextView txtContact;
 
     private int employerId;
     private Button btnApply;
 
-    private ScrollView scrollView;
-    private LinearLayout buttonContainer;
+    private ViewPager2 imageCarousel;
 
     final private String API_URL = "http://10.0.2.2:8080/api/main/jobs/search/";
 
@@ -57,7 +63,6 @@ public class Activity_Single_Job_Offer extends Drawer {
 
         // Top bar
         backButton = findViewById(R.id.backButton);
-        txtRetour = findViewById(R.id.txtRetour);
 
         // Job info
         txtPostedBy = findViewById(R.id.txtPostedBy); // Add android:id="@+id/txtPostedBy" if needed
@@ -65,27 +70,19 @@ public class Activity_Single_Job_Offer extends Drawer {
         txtLocation = findViewById(R.id.txtLocation); // Add android:id="@+id/txtLocation"
 
         // Mission section
-        txtMissionLabel = findViewById(R.id.txtMissionLabel);
         txtMission1 = findViewById(R.id.txtMission1);
         txtMission2 = findViewById(R.id.txtMission2);
         txtMission3 = findViewById(R.id.txtMission3);
 
         // Description section
-        txtDescriptionLabel = findViewById(R.id.txtDescriptionLabel);
         txtDescription = findViewById(R.id.txtDescription);
 
-        // Skills section
-        txtSkillsLabel = findViewById(R.id.txtSkillsLabel);
-        txtSkill1 = findViewById(R.id.txtSkill1);
-        txtSkill2 = findViewById(R.id.txtSkill2);
-        txtSkill3 = findViewById(R.id.txtSkill3);
+        imageCarousel = findViewById(R.id.imageCarousel);
 
         // Contact
         txtContact = findViewById(R.id.txtContact);
 
-        // ScrollView & button container
-        scrollView = findViewById(R.id.scrollView);
-        buttonContainer = findViewById(R.id.buttonContainer);
+
 
         // Apply button
         btnApply = findViewById(R.id.btnApply);
@@ -138,6 +135,35 @@ public class Activity_Single_Job_Offer extends Drawer {
                         String location = job.getString("location");
                         JSONArray missions = job.getJSONArray("missions");
                         employerId = job.getInt("employerId");
+                        JSONArray mediaJson = job.getJSONObject("media").names();
+                        List<String> imageUrls = new ArrayList<>();
+
+                        if (mediaJson != null) {
+                            JSONObject media = job.getJSONObject("media");
+
+                            for (int i = 0; i < mediaJson.length(); i++) {
+                                String key = mediaJson.getString(i);
+                                String fileName = media.getString(key);
+
+                                try {
+                                    String imageUrl = "http://10.0.2.2:8080/images/jobmedias/"
+                                            + URLEncoder.encode(fileName, "UTF-8")
+                                            + "?t=" + System.currentTimeMillis(); // Bust cache
+
+                                    imageUrls.add(imageUrl);
+
+                                    // Log each image URL to track it
+                                    Log.d(TAG, "Image URL: " + imageUrl);
+                                } catch (UnsupportedEncodingException e) {
+                                    Log.e(TAG, "Encoding error for file name: " + fileName, e);
+                                }
+                            }
+                        }
+
+                        if (imageUrls != null && !imageUrls.isEmpty()) {
+                            imageCarousel.setAdapter(new ImageCarouselAdapter(Activity_Single_Job_Offer.this, imageUrls));
+                        }
+
                         runOnUiThread(() -> {
                             txtTitle.setText(title);
                             txtDescription.setText(description);

@@ -7,7 +7,7 @@
     android:background="#F8F8F8">
 
     <!-- Scrollable Content -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,6 +71,15 @@
                 android:text="Casablanca"
                 android:textSize="14sp" />
 
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/imageCarousel"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginBottom="16dp"
+                android:clipToPadding="false"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
             <!-- Missions Card -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,42 +142,7 @@
                     android:text="Nous recherchons un électricien qualifié pour une mission de 2 jours afin d’installer et réparer des équipements électriques dans un appartement." />
             </LinearLayout>
 
-            <!-- Compétences Card -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/card_background">
 
-                <TextView
-                    android:id="@+id/txtSkillsLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="🛠️ Compétences Requises :"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/txtSkill1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔷 Expérience en électricité résidentielle" />
-
-                <TextView
-                    android:id="@+id/txtSkill2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔷 Connaissance des normes de sécurité" />
-
-                <TextView
-                    android:id="@+id/txtSkill3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔷 Capacité à diagnostiquer et résoudre des problèmes électriques" />
-            </LinearLayout>
 
             <!-- Contact Card -->
             <TextView
@@ -181,7 +155,7 @@
                 android:text="📞 Contact : 0652976002"
                 android:textSize="16sp" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Bottom Button -->
     <LinearLayout

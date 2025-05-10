@@ -47,10 +47,8 @@ public class Activity_EditJobOffer extends Drawer {
     private EditText mJobLocation;
     private AutoCompleteTextView mJobCategoryOptions;
     private LinearLayout missionsContainer;
-    private LinearLayout mediaContainer;
     private SharedPreferences prefs;
     private Button addMission;
-    private Button addMedia;
     final String API_URL = "http://10.0.2.2:8080/api/employer/job";
     private final String TAG = "Activity_EditJobOffer";
     private final String API_URL_BASE = "http://10.0.2.2:8080/api/main/jobs/search/";
@@ -80,14 +78,11 @@ public class Activity_EditJobOffer extends Drawer {
         mJobCategoryOptions = findViewById(R.id.job_offer_category_options);
         mJobLocation = findViewById(R.id.job_offer_location);
         missionsContainer = findViewById(R.id.missions_container);
-        mediaContainer = findViewById(R.id.media_container);
 
         addMission = findViewById(R.id.add_mission_button);
-        addMedia = findViewById(R.id.add_media_button);
         addMission.setOnClickListener(v -> addMissionField());
-        addMedia.setOnClickListener(v -> addMediaField());
 
-        Button editBtn = findViewById(R.id.btn_new_job);
+        Button editBtn = findViewById(R.id.btn_update_job);
 
         editBtn.setOnClickListener(view -> {
             if (jobId != -1) {
@@ -150,17 +145,6 @@ public class Activity_EditJobOffer extends Drawer {
                                 }
                             }
 
-                            // Media object (handle the case where there are media entries)
-                            JSONObject media = job.getJSONObject("media");
-                            if (media.length() > 0) {
-                                for (int i = 0; i < media.length(); i++) {
-                                    String key = String.valueOf(i);  // Convert index to string for key
-                                    String mediaUrl = media.getString(key);
-                                    addMediaField();
-                                    EditText mediaInput = (EditText) mediaContainer.getChildAt(i);
-                                    mediaInput.setText(mediaUrl);
-                                }
-                            }
 
                         } catch (Exception e) {
                             Log.e(TAG, "Error processing JSON: " + e.getMessage());
@@ -188,17 +172,6 @@ public class Activity_EditJobOffer extends Drawer {
         missionsContainer.addView(missionInput);
     }
 
-    private void addMediaField() {
-        EditText mediaInput = new EditText(this);
-        mediaInput.setHint("Media URL");
-        mediaInput.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-        mediaInput.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
-        mediaInput.setBackgroundResource(R.drawable.input_field_background); // Optional
-        mediaContainer.addView(mediaInput);
-    }
 
     private void editJobOffer(String token, int jobId) {
         try {
@@ -218,17 +191,6 @@ public class Activity_EditJobOffer extends Drawer {
             }
             body.put("missions", missions);
 
-            // Media object
-            JSONObject media = new JSONObject();
-            for (int i = 0; i < mediaContainer.getChildCount(); i++) {
-                EditText mediaInput = (EditText) mediaContainer.getChildAt(i);
-                String mediaUrl = mediaInput.getText().toString().trim();
-                if (!mediaUrl.isEmpty()) media.put(String.valueOf(i), mediaUrl);
-            }
-            body.put("media", media);
-
-            // You can set status if your API expects it (optional)
-            body.put("status", "OPEN"); // or "CLOSED", depending on your use case
 
             sendUpdateRequest(token, body, jobId);
 

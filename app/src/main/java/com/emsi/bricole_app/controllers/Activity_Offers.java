@@ -7,9 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -41,6 +44,7 @@ public class Activity_Offers extends Drawer {
     private JSONArray offersArray;
     private LinearLayout noOffersContainer;
     private Button mBtnNewJob;
+    private EditText searchInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +56,20 @@ public class Activity_Offers extends Drawer {
         // Get the access token from shared preferences
         prefs = getSharedPreferences("auth", MODE_PRIVATE);
         USER_ACCESS_TOKEN = prefs.getString("access_token", null);
+        searchInput = findViewById(R.id.search_input);
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterOffersByTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         mBtnNewJob = findViewById(R.id.btn_post_job);
         mBtnNewJob.setOnClickListener(view -> {
             Intent intent = new Intent(this, Activity_Employer_NewJobOffer.class);
@@ -59,6 +77,30 @@ public class Activity_Offers extends Drawer {
         });
         fetchOffers();
     }
+    private void filterOffersByTitle(String query) {
+        if (offersArray == null) return;
+
+        JSONArray filteredArray = new JSONArray();
+        for (int i = 0; i < offersArray.length(); i++) {
+            try {
+                JSONObject offer = offersArray.getJSONObject(i);
+                String title = offer.getString("title");
+                if (title.toLowerCase().contains(query.toLowerCase())) {
+                    filteredArray.put(offer);
+                }
+            } catch (JSONException e) {
+                Log.e(TAG, "Filter JSON error: " + e.getMessage());
+            }
+        }
+
+        try {
+            displayOffers(filteredArray);
+        } catch (JSONException e) {
+            Log.e(TAG, "Display filtered offers error: " + e.getMessage());
+        }
+    }
+
+
 
     private void fetchOffers() {
         OkHttpClient client = new OkHttpClient();
